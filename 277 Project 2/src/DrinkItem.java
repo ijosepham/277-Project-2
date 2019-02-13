@@ -41,7 +41,7 @@ public abstract class DrinkItem {
 	}
 	
 	public String toString ( ) {
-		return size + " " + name +  ", " + sweetness + ".";
+		return size + " " + name +  ", " + sweetness;
 	}
 	
 	public abstract double getCost ( );
