@@ -16,8 +16,8 @@ public class Cookie extends DessertItem {
 	public Cookie ( int q ) {
 		super ( "Cookie" );
 		quantity = q;
-		dozens = quantity / 12;
 		singles = quantity % 12;
+		dozens = quantity / 12;
 	}
 	
 	public String toString ( ) {
