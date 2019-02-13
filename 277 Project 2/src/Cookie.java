@@ -1,4 +1,42 @@
 
-public class Cookie {
+public class Cookie extends DessertItem {
+	private int quantity;
+	private int singles;
+	private int dozens;
+	private double singlePrice = 1.00;
+	private double dozenPrice = 10.00;
+	
+	public Cookie ( ) {
+		quantity = 1;
+		singles = 1;
+		dozens = 0;
+	}
+	
+	public Cookie ( int q ) {
+		quantity = q;
+		dozens = quantity / 12;
+		singles = quantity % 12;
+	}
+	
+	public String toString ( ) {
+		if ( quantity % 12 == 0 ) { // if dozen(s)
+			if ( quantity == 12 ) { // if only one dozen
+				return "Dozen of Cookies";
+			} else {
+				return dozens + " Dozens of Cookies";
+			}
+		} else {
+			if ( quantity == 1 ) {
+				return "1 Cookie";
+			} else {
+				return quantity + " Cookies";
+			}
+		}
+	}
+	
+	@Override
+	public double getCost() {
+		return singles * singlePrice + dozens * dozenPrice;
+	}
 
 }
