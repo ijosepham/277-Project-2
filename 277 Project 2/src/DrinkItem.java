@@ -1,16 +1,16 @@
 
 public abstract class DrinkItem {
 	private String name;
-	private int sweetness;
+	private String sweetness;
 	private String size;
 	
 	public DrinkItem ( ) {
 		name = "";
-		sweetness = 100;
+		sweetness = "Full Sweetness";
 		size = "Medium";
 	}
 	
-	public DrinkItem ( String n, int sw, String sz ) {
+	public DrinkItem ( String n, String sw, String sz ) {
 		name = n;
 		sweetness = sw;
 		size = sz;
@@ -20,7 +20,7 @@ public abstract class DrinkItem {
 		name = n;
 	}
 	
-	public void setSweetness ( int sw ) {
+	public void setSweetness ( String sw ) {
 		sweetness = sw;
 	}
 	
@@ -32,7 +32,7 @@ public abstract class DrinkItem {
 		return name;
 	}
 	
-	public int getSweetness ( ) {
+	public String getSweetness ( ) {
 		return sweetness;
 	}
 
@@ -41,8 +41,7 @@ public abstract class DrinkItem {
 	}
 	
 	public String toString ( ) {
-		String s = size + " " + name +  ", " + sweetness + "% Sweetness.";
-		return s;
+		return size + " " + name +  ", " + sweetness + ".";
 	}
 	
 	public abstract double getCost ( );
