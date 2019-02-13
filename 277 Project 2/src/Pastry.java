@@ -5,11 +5,13 @@ public class Pastry extends DessertItem {
 	private String temperature;
 	
 	public Pastry ( ) {
+		super ( "Pastry" );
 		quantity = 1;
 		temperature = "Warm";
 	}
 	
 	public Pastry ( int q, String t ) {
+		super ( "Pastry" );
 		quantity = q;
 		temperature = t;
 	}

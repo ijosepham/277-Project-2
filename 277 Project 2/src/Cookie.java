@@ -7,12 +7,14 @@ public class Cookie extends DessertItem {
 	private double dozenPrice = 10.00;
 	
 	public Cookie ( ) {
+		super ( "Cookie" );
 		quantity = 1;
 		singles = 1;
 		dozens = 0;
 	}
 	
 	public Cookie ( int q ) {
+		super ( "Cookie" );
 		quantity = q;
 		dozens = quantity / 12;
 		singles = quantity % 12;
