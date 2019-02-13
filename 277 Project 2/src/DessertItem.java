@@ -17,7 +17,6 @@ public abstract class DessertItem {
 	public String getName ( ) {
 		return name;
 	}
-
 	
 	public String toString ( ) {
 		String s = name;
