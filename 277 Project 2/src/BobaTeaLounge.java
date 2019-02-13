@@ -1,33 +1,39 @@
 
 public class BobaTeaLounge {
 	public static void main ( String [ ] args ) {
-		int menuChoice = 0;
-		
-		menuChoice = getMain ( );
+		int menuChoice = getMain ( );
 		while ( menuChoice != 3 ) {
 			if ( menuChoice == 1 ) { // drink
-				menuChoice = getDrinks ( );
+				menuChoice = getDrink ( );
 				if ( menuChoice == 1 ) { // tea
 					orderTea ( );
 				} else if ( menuChoice == 2 ) { // coffee
 					orderCoffee ( );
 				}
 			} else if ( menuChoice == 2 ) { // dessert
-				
+				menuChoice = getDessert ( );
+				if ( menuChoice == 1 ) { // pastry
+					orderPastry ( );
+				} else if ( menuChoice == 2 ) { // cookie
+					orderCookie ( );
+				} else { // mac
+					orderMacaron ( );
+				}
 			}
 			menuChoice = getMain ( );
 		}
 		System.out.println ( "Thank you for coming to Boba Tea Lounge. Come again!" );
 	}
 	
-	public static void orderTea ( ) {
-		String name = getTeaBase ( );
+	public static BobaDrink orderTea ( ) {
+		String tea = getTeaBase ( );
 		String sweetness = getTeaSweetness ( );
 		String milk = getTeaMilk ( );
 		String topping = getTeaTopping ( );
-		String size = getTeaSize ( );
-		BobaDrink order = new BobaDrink ( name, sweetness, milk, topping, size );
-		System.out.println ( order.toString ( ) );
+		String size = getSize ( );
+		BobaDrink order = new BobaDrink ( tea, sweetness, milk, topping, size );
+		printOrder ( order );
+		return order;
 	}
 	
 	public static int getMain ( ) {
@@ -38,7 +44,7 @@ public class BobaTeaLounge {
 		return GetInput.getIntRange ( 1, 3 );
 	}
 	
-	public static int getDrinks ( ) {
+	public static int getDrink ( ) {
 		System.out.println ( "Drinks" );
 		System.out.println ( "1. Tea" );
 		System.out.println ( "2. Coffee" );
@@ -135,28 +141,14 @@ public class BobaTeaLounge {
 		}
 	}
 	
-	public static String getTeaSize ( ) {
-		System.out.println ( "Tea Sizes" );
-		System.out.println ( "1. Small" );
-		System.out.println ( "2. Medium" );
-		System.out.println ( "3. Large" );
-		int input = GetInput.getIntRange ( 1, 3 );
-		if ( input == 1 ) {
-			return "Small";
-		} else if ( input == 2 ) {
-			return "Medium";
-		} else {
-			return "Large";
-		}
-	}
-	
-	public static void orderCoffee ( ) {
+	public static CoffeeDrink orderCoffee ( ) {
 		int teaspoons = getCoffeeSweetness ( );
 		String sweetness = teaspoons + " Teaspoons";
 		String milk = getCoffeeMilk ( );
-		String size = getCoffeeSize ( );
+		String size = getSize ( );
 		CoffeeDrink order = new CoffeeDrink ( sweetness, size, milk );
-		System.out.println ( order.toString ( ) );
+		printOrder ( order );
+		return order;
 	}
 	
 	public static int getCoffeeSweetness ( ) {
@@ -179,8 +171,8 @@ public class BobaTeaLounge {
 		}
 	}
 	
-	public static String getCoffeeSize ( ) {
-		System.out.println ( "Coffee Sizes" );
+	public static String getSize ( ) {
+		System.out.println ( "Sizes" );
 		System.out.println ( "1. Small" );
 		System.out.println ( "2. Medium" );
 		System.out.println ( "3. Large" );
@@ -194,12 +186,24 @@ public class BobaTeaLounge {
 		}
 	}
 	
-	public static int getDesserts ( ) {
+	public static int getDessert ( ) {
 		System.out.println ( "Desserts" );
 		System.out.println ( "1. Pastry" );
 		System.out.println ( "2. Cookie" );
 		System.out.println ( "3. Macaron" );
 		return GetInput.getIntRange ( 1, 3 );
+	}
+	
+	public static Pastry orderPastry ( ) {
+		String pastry = getPastry ( );
+		String temperature = getPastryTemperature ( );
+		int quantity = getDessertQuantity ( pastry );
+		if ( quantity > 1 ) { 
+			pastry += "s";
+		}
+		Pastry order = new Pastry ( pastry, quantity, temperature );
+		printOrder ( order );
+		return order;
 	}
 	
 	public static String getPastry ( ) {
@@ -217,6 +221,40 @@ public class BobaTeaLounge {
 		}
 	}
 	
+	public static String getPastryTemperature ( ) {
+		System.out.println ( "Temperature" );
+		System.out.println ( "1. Hot" );
+		System.out.println ( "2. Warm" );
+		System.out.println ( "3. Cool" );
+		System.out.println ( "4. Cold" );
+		int input = GetInput.getIntRange ( 1, 4 );
+		if ( input == 1 ) {
+			return "Hot";
+		} else if ( input == 2 ) {
+			return "Warm";
+		} else if ( input == 3 ) {
+			return "Cool";
+		} else {
+			return "Cold";
+		}
+	}
+	
+	public static int getDessertQuantity ( String dessert ) {
+		System.out.print ( "How many " + dessert + "s would you like? " );
+		return GetInput.getInt ( );
+	}
+	
+	public static Cookie orderCookie ( ) {
+		String cookie = getCookie ( );
+		int quantity = getDessertQuantity ( cookie );
+		if ( quantity > 1 ) { 
+			cookie += "s";
+		}
+		Cookie order = new Cookie ( cookie, quantity );
+		printOrder ( order );
+		return order;
+	}
+	
 	public static String getCookie ( ) {
 		System.out.println ( "Cookie Varieties" );
 		System.out.println ( "1. Chocolate Chip" );
@@ -224,12 +262,23 @@ public class BobaTeaLounge {
 		System.out.println ( "3. Sugar" );
 		int input = GetInput.getIntRange ( 1, 3 );
 		if ( input == 1 ) {
-			return "Chocolate Chip";
+			return "Chocolate Chip Cookie";
 		} else if ( input == 2 ) {
-			return "Oatmeal";
+			return "Oatmeal Cookie";
 		} else {
-			return "Sugar";
+			return "Sugar Cookie";
 		}
+	}
+	
+	public static Macaron orderMacaron ( ) {
+		String macaron = getMacaron ( );
+		int quantity = getDessertQuantity ( macaron );
+		if ( quantity > 1 ) { 
+			macaron += "s";
+		}
+		Macaron order = new Macaron ( macaron, quantity );
+		printOrder ( order );
+		return order;
 	}
 	
 	public static String getMacaron ( ) {
@@ -239,11 +288,15 @@ public class BobaTeaLounge {
 		System.out.println ( "3. Vanilla" );
 		int input = GetInput.getIntRange ( 1, 3 );
 		if ( input == 1 ) {
-			return "Green Tea";
+			return "Green Tea Macaron";
 		} else if ( input == 2 ) {
-			return "Chocolate";
+			return "Chocolate Macaron";
 		} else {
-			return "Vanilla";
+			return "Vanilla Macaron";
 		}
+	}
+	
+	public static void printOrder ( Object o ) {
+		System.out.println ( "\n" + "Your Order: " + o.toString ( ) + "\n" );
 	}
 }
