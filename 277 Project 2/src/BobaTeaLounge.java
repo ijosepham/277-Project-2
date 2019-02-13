@@ -8,15 +8,9 @@ public class BobaTeaLounge {
 			if ( menuChoice == 1 ) { // drink
 				menuChoice = getDrinks ( );
 				if ( menuChoice == 1 ) { // tea
-					String name = getTeaBase ( );
-					String sweetness = getTeaSweetness ( );
-					String milk = getTeaMilk ( );
-					String topping = getTeaTopping ( );
-					String size = getTeaSize ( );
-					BobaDrink order = new BobaDrink ( name, sweetness, milk, topping, size );
-					System.out.println ( order.toString ( ) );
+					orderTea ( );
 				} else if ( menuChoice == 2 ) { // coffee
-					
+					orderCoffee ( );
 				}
 			} else if ( menuChoice == 2 ) { // dessert
 				
@@ -24,6 +18,16 @@ public class BobaTeaLounge {
 			menuChoice = getMain ( );
 		}
 		System.out.println ( "Thank you for coming to Boba Tea Lounge. Come again!" );
+	}
+	
+	public static void orderTea ( ) {
+		String name = getTeaBase ( );
+		String sweetness = getTeaSweetness ( );
+		String milk = getTeaMilk ( );
+		String topping = getTeaTopping ( );
+		String size = getTeaSize ( );
+		BobaDrink order = new BobaDrink ( name, sweetness, milk, topping, size );
+		System.out.println ( order.toString ( ) );
 	}
 	
 	public static int getMain ( ) {
@@ -144,6 +148,15 @@ public class BobaTeaLounge {
 		} else {
 			return "Large";
 		}
+	}
+	
+	public static void orderCoffee ( ) {
+		int teaspoons = getCoffeeSweetness ( );
+		String sweetness = teaspoons + " Teaspoons";
+		String milk = getCoffeeMilk ( );
+		String size = getCoffeeSize ( );
+		CoffeeDrink order = new CoffeeDrink ( sweetness, size, milk );
+		System.out.println ( order.toString ( ) );
 	}
 	
 	public static int getCoffeeSweetness ( ) {
