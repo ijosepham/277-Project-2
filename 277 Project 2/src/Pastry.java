@@ -1,7 +1,7 @@
 
 public class Pastry extends DessertItem {
 	private int quantity;
-	private int price = 1;
+	private double price = 1.00;
 	private String temperature;
 	
 	public Pastry ( ) {
