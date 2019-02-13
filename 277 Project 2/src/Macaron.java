@@ -13,8 +13,8 @@ public class Macaron extends DessertItem {
 		trios = 0;
 	}
 	
-	public Macaron ( int q ) {
-		super ( "Macaron" );
+	public Macaron ( String m, int q ) {
+		super ( m );
 		quantity = q;
 		singles = quantity % 3;
 		trios = quantity / 3;

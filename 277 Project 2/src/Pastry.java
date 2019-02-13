@@ -10,8 +10,8 @@ public class Pastry extends DessertItem {
 		temperature = "Warm";
 	}
 	
-	public Pastry ( int q, String t ) {
-		super ( "Pastry" );
+	public Pastry ( String p, int q, String t ) {
+		super ( p );
 		quantity = q;
 		temperature = t;
 	}
