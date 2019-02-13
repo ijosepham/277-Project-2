@@ -19,8 +19,7 @@ public abstract class DessertItem {
 	}
 	
 	public String toString ( ) {
-		String s = name;
-		return s;
+		return name;
 	}
 	
 	public abstract double getCost ( );
