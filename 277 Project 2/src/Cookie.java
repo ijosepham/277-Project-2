@@ -23,7 +23,7 @@ public class Cookie extends DessertItem {
 	public String toString ( ) {
 		if ( quantity % 12 == 0 ) { // if dozen(s)
 			if ( quantity == 12 ) { // if only one dozen
-				return "Dozen of " + super.getName ( );
+				return "1 Dozen of " + super.getName ( );
 			} else {
 				return dozens + " Dozens of " + super.getName ( );
 			}
