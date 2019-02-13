@@ -16,7 +16,7 @@ public class BobaDrink extends DrinkItem {
 	}
 	
 	public String toString ( ) {
-		return super.toString ( ) + " with " + topping + " and " + milk;
+		return super.getSize ( ) + " " + topping + " " + super.getName( ) + " with " + milk;
 	}
 	
 	@Override
