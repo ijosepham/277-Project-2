@@ -18,9 +18,9 @@ public class Pastry extends DessertItem {
 	
 	public String toString ( ) {
 		if ( quantity > 1 ) {
-			return quantity + " " + temperature + " Pastries";
+			return quantity + " " + temperature + " " + super.getName ( );
 		} else {
-			return "1 " + temperature + " Pastry";
+			return "1 " + temperature + " " + super.getName ( );
 		}
 		
 	}

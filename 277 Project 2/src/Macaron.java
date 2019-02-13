@@ -22,9 +22,9 @@ public class Macaron extends DessertItem {
 	
 	public String toString ( ) {
 		if ( quantity > 1 ) {
-			return quantity + " Macarons";
+			return quantity + " " + super.getName ( );
 		} else {
-			return "1 Macaron";
+			return "1 " + super.getName ( );
 		}
 	}
 	

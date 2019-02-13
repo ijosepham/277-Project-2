@@ -23,15 +23,15 @@ public class Cookie extends DessertItem {
 	public String toString ( ) {
 		if ( quantity % 12 == 0 ) { // if dozen(s)
 			if ( quantity == 12 ) { // if only one dozen
-				return "Dozen of Cookies";
+				return "Dozen of " + super.getName ( );
 			} else {
-				return dozens + " Dozens of Cookies";
+				return dozens + " Dozens of " + super.getName ( );
 			}
 		} else {
 			if ( quantity == 1 ) {
-				return "1 Cookie";
+				return "1 " + super.getName ( );
 			} else {
-				return quantity + " Cookies";
+				return quantity + " " + super.getName ( );
 			}
 		}
 	}
