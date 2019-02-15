@@ -2,23 +2,29 @@
 public class BobaTeaLounge {
 	public static void main ( String [ ] args ) {
 		int menuChoice = getMain ( );
+		MenuItem order = null;
+		CashRegister cashRegister  = new CashRegister ( );
+		
 		while ( menuChoice != 3 ) {
 			if ( menuChoice == 1 ) { // drink
 				menuChoice = getDrink ( );
 				if ( menuChoice == 1 ) { // tea
-					orderTea ( );
+					order = orderTea ( );
 				} else if ( menuChoice == 2 ) { // coffee
-					orderCoffee ( );
+					order = orderCoffee ( );
 				}
-			} else if ( menuChoice == 2 ) { // dessert
+			} else { // dessert
 				menuChoice = getDessert ( );
 				if ( menuChoice == 1 ) { // pastry
-					orderPastry ( );
+					order = orderPastry ( );
 				} else if ( menuChoice == 2 ) { // cookie
-					orderCookie ( );
+					order = orderCookie ( );
 				} else { // mac
-					orderMacaron ( );
+					order = orderMacaron ( );
 				}
+			}
+			if ( confirmOrder ( order ) ) {
+				cashRegister.add ( order );
 			}
 			menuChoice = getMain ( );
 		}
@@ -32,7 +38,6 @@ public class BobaTeaLounge {
 		String topping = getTeaTopping ( );
 		String size = getSize ( );
 		BobaDrink order = new BobaDrink ( tea, sweetness, milk, topping, size );
-		printOrder ( order );
 		return order;
 	}
 	
@@ -146,11 +151,11 @@ public class BobaTeaLounge {
 	
 	public static CoffeeDrink orderCoffee ( ) {
 		int teaspoons = getCoffeeSweetness ( );
-		String sweetness = teaspoons + " Teaspoons";
+		String sweetness = teaspoons + " Teaspoon";
+		sweetness = makePlural ( sweetness, teaspoons );
 		String milk = getCoffeeMilk ( );
 		String size = getSize ( );
 		CoffeeDrink order = new CoffeeDrink ( sweetness, size, milk );
-		printOrder ( order );
 		return order;
 	}
 	
@@ -201,11 +206,8 @@ public class BobaTeaLounge {
 		String pastry = getPastry ( );
 		String temperature = getPastryTemperature ( );
 		int quantity = getDessertQuantity ( pastry );
-		if ( quantity > 1 ) { 
-			pastry += "s";
-		}
+		pastry = makePlural ( pastry, quantity );
 		Pastry order = new Pastry ( pastry, quantity, temperature );
-		printOrder ( order );
 		return order;
 	}
 	
@@ -250,11 +252,8 @@ public class BobaTeaLounge {
 	public static Cookie orderCookie ( ) {
 		String cookie = getCookie ( );
 		int quantity = getDessertQuantity ( cookie );
-		if ( quantity > 1 ) { 
-			cookie += "s";
-		}
+		cookie = makePlural ( cookie, quantity );
 		Cookie order = new Cookie ( cookie, quantity );
-		printOrder ( order );
 		return order;
 	}
 	
@@ -276,11 +275,8 @@ public class BobaTeaLounge {
 	public static Macaron orderMacaron ( ) {
 		String macaron = getMacaron ( );
 		int quantity = getDessertQuantity ( macaron );
-		if ( quantity > 1 ) { 
-			macaron += "s";
-		}
+		macaron = makePlural ( macaron, quantity );
 		Macaron order = new Macaron ( macaron, quantity );
-		printOrder ( order );
 		return order;
 	}
 	
@@ -297,6 +293,19 @@ public class BobaTeaLounge {
 		} else {
 			return "Vanilla Macaron";
 		}
+	}
+	
+	public static String makePlural ( String order, int quantity ) {
+		if ( quantity > 1 || quantity == 0 ) { 
+			order += "s";
+		}
+		return order;
+	}
+	
+	public static boolean confirmOrder ( MenuItem o ) {
+		printOrder ( o );
+		System.out.print ( "Confirm Order (Y/N): " );
+		return GetInput.getYesOrNo ( );
 	}
 	
 	public static void printOrder ( MenuItem o ) {
