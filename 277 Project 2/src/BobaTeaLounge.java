@@ -296,7 +296,8 @@ public class BobaTeaLounge {
 		}
 	}
 	
-	public static void printOrder ( Object o ) {
-		System.out.println ( "\n" + "Your Order: " + o.toString ( ) + "\n" );
+	public static void printOrder ( MenuItem o ) {
+		System.out.println ( "\n" + "Your Order: " + o.toString ( ) );
+		System.out.printf ( "Price: $" + "%.2f" + "\n" + "\n", o.getCost ( ) );
 	}
 }
