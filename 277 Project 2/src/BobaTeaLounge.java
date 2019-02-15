@@ -125,7 +125,8 @@ public class BobaTeaLounge {
 		System.out.println ( "4. Lychee Jelly" );
 		System.out.println ( "5. Coconut Jelly" );
 		System.out.println ( "6. Mini Mochi" );
-		int input = GetInput.getIntRange ( 1, 6 );
+		System.out.println ( "7. None" );
+		int input = GetInput.getIntRange ( 1, 7 );
 		if ( input == 1 ) { 
 			return "Boba";
 		} else if ( input == 2 ) {
@@ -136,8 +137,10 @@ public class BobaTeaLounge {
 			return "Lychee Jelly";
 		} else if ( input == 5 ) {
 			return "Coconut Jelly";
-		} else {
+		} else if ( input == 6 ){
 			return "Mini Mochi";
+		} else {
+			return "None";
 		}
 	}
 	
@@ -173,9 +176,9 @@ public class BobaTeaLounge {
 	
 	public static String getSize ( ) {
 		System.out.println ( "Sizes" );
-		System.out.println ( "1. Small" );
-		System.out.println ( "2. Medium" );
-		System.out.println ( "3. Large" );
+		System.out.println ( "1. Small   $3.00" );
+		System.out.println ( "2. Medium  $3.50" );
+		System.out.println ( "3. Large   $4.00" );
 		int input = GetInput.getIntRange ( 1, 3 );
 		if ( input == 1 ) {
 			return "Small";
