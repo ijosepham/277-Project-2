@@ -34,4 +34,18 @@ public class GetInput {
 		Scanner in = new Scanner ( System.in );
 		return in.nextLine ( );
 	}
+	
+	public static boolean getYesOrNo ( ) {
+		Scanner in = new Scanner ( System.in );
+		String input = in.nextLine ( );
+		while ( ! input.equalsIgnoreCase ( "y" ) && ! input.equalsIgnoreCase ( "n" ) ) {
+			System.out.print ( "Enter a valid choice (Y/N): " );
+			input = in.nextLine ( );
+		}
+		if ( input.equalsIgnoreCase ( "y" ) ) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }
