@@ -20,6 +20,12 @@ public class Macaron extends DessertItem {
 		trios = quantity / 3;
 	}
 	
+	public void setQuantity ( int q ) {
+		quantity = q;
+		singles = quantity % 3;
+		trios = quantity / 3;
+	}
+	
 	public String toString ( ) {
 		if ( quantity > 1 ) {
 			return quantity + " " + super.getName ( );

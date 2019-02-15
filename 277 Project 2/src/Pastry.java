@@ -1,7 +1,10 @@
 
 public class Pastry extends DessertItem {
 	private int quantity;
-	private double price = 1.00;
+	private int singles;
+	private int fives;
+	private double singlePrice = 1.00;
+	private double fivesPrice = 4.00;
 	private String temperature;
 	
 	public Pastry ( ) {
@@ -13,7 +16,15 @@ public class Pastry extends DessertItem {
 	public Pastry ( String p, int q, String t ) {
 		super ( p );
 		quantity = q;
+		singles = quantity % 5;
+		fives = quantity / 5;
 		temperature = t;
+	}
+	
+	public void setQuantity ( int q ) {
+		quantity = q;
+		singles = quantity % 5;
+		fives = quantity / 5;
 	}
 	
 	public String toString ( ) {
@@ -22,12 +33,11 @@ public class Pastry extends DessertItem {
 		} else {
 			return "1 " + temperature + " " + super.getName ( );
 		}
-		
 	}
 	
 	@Override
 	public double getCost() {
-		return quantity * price;
+		return singles * singlePrice + fives * fivesPrice;
 	}
 
 }

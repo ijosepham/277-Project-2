@@ -20,6 +20,12 @@ public class Cookie extends DessertItem {
 		dozens = quantity / 12;
 	}
 	
+	public void setQuantity ( int q ) {
+		quantity = q;
+		singles = quantity % 12;
+		dozens = quantity / 12;
+	}
+	
 	public String toString ( ) {
 		if ( quantity % 12 == 0 ) { // if dozen(s)
 			if ( quantity == 12 ) { // if only one dozen
