@@ -26,6 +26,7 @@ public class BobaTeaLounge {
 			if ( confirmOrder ( order ) ) {
 				cashRegister.add ( order );
 			}
+			cashRegister.printReceipt ( );
 			menuChoice = getMain ( );
 		}
 		System.out.println ( "Thank you for coming to Boba Tea Lounge. Come again!" );
