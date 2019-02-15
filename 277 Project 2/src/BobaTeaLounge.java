@@ -1,3 +1,9 @@
+/**
+ * remove plural thing, pass in only the base name 
+ * move plural thing to dessert tostring to just add the "s" 
+ * in cash register, combine orders with first instance 
+ * 		of same base name.
+ */
 
 public class BobaTeaLounge {
 	public static void main ( String [ ] args ) {
