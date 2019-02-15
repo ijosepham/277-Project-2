@@ -159,7 +159,6 @@ public class BobaTeaLounge {
 	public static CoffeeDrink orderCoffee ( ) {
 		int teaspoons = getCoffeeSweetness ( );
 		String sweetness = teaspoons + " Teaspoon";
-		sweetness = makePlural ( sweetness, teaspoons );
 		String milk = getCoffeeMilk ( );
 		String size = getSize ( );
 		CoffeeDrink order = new CoffeeDrink ( sweetness, size, milk );
@@ -213,7 +212,6 @@ public class BobaTeaLounge {
 		String pastry = getPastry ( );
 		String temperature = getPastryTemperature ( );
 		int quantity = getDessertQuantity ( pastry );
-		pastry = makePlural ( pastry, quantity );
 		Pastry order = new Pastry ( pastry, quantity, temperature );
 		return order;
 	}
@@ -259,7 +257,6 @@ public class BobaTeaLounge {
 	public static Cookie orderCookie ( ) {
 		String cookie = getCookie ( );
 		int quantity = getDessertQuantity ( cookie );
-		cookie = makePlural ( cookie, quantity );
 		Cookie order = new Cookie ( cookie, quantity );
 		return order;
 	}
@@ -282,7 +279,6 @@ public class BobaTeaLounge {
 	public static Macaron orderMacaron ( ) {
 		String macaron = getMacaron ( );
 		int quantity = getDessertQuantity ( macaron );
-		macaron = makePlural ( macaron, quantity );
 		Macaron order = new Macaron ( macaron, quantity );
 		return order;
 	}
@@ -300,13 +296,6 @@ public class BobaTeaLounge {
 		} else {
 			return "Vanilla Macaron";
 		}
-	}
-	
-	public static String makePlural ( String order, int quantity ) {
-		if ( quantity > 1 || quantity == 0 ) { 
-			order += "s";
-		}
-		return order;
 	}
 	
 	public static boolean confirmOrder ( MenuItem o ) {
