@@ -1,5 +1,5 @@
 
-public abstract class DessertItem {
+public abstract class DessertItem extends MenuItem {
 	private String name;
 	
 	public DessertItem ( ) {
