@@ -21,7 +21,18 @@ public class BobaDrink extends DrinkItem {
 	
 	@Override
 	public double getCost() {
-		return 0.00;
+		int cost = 0;
+		if ( topping != "None" ) {
+			cost += .50;
+		}
+		if ( super.getSize( ) == "Small" ) {
+			cost += 3.00;
+		} else if ( super.getSize( ) == "Medium" ) {
+			cost += 3.50;
+		} else {
+			cost += 4.00;
+		} 
+		return cost;
 	}
 
 }

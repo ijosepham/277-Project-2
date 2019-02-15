@@ -17,7 +17,13 @@ public class CoffeeDrink extends DrinkItem {
 	
 	@Override
 	public double getCost() {
-		return 0;
+		if ( super.getSize( ) == "Small" ) {
+			return 3.00;
+		} else if ( super.getSize( ) == "Medium" ) {
+			return 3.50;
+		} else {
+			return 4.00;
+		} 
 	}
 
 }
