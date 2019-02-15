@@ -45,9 +45,13 @@ public class CashRegister extends ArrayList < MenuItem > {
 	
 	public void printReceipt ( ) {
 		int orderSize = orderSize ( );
+		MenuItem order = null;
+		double price = 0;
 		System.out.println ( "Order Receipt" );
 		for ( int i = 0; i < orderSize; i ++ ) {
-			System.out.println ( getOrder ( i ) );
+			order = getOrder ( i );
+			price = order.getCost ( );
+			System.out.printf ( order + "   $" + "%.2f" + "\n", price );
 		}
 	}
 	
