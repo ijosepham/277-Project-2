@@ -3,7 +3,7 @@ public class Pastry extends DessertItem {
 	private int quantity;
 	private int singles;
 	private int fives;
-	private double singlePrice = 1.00;
+	private double singlesPrice = 1.00;
 	private double fivesPrice = 4.00;
 	private String temperature;
 	
@@ -28,16 +28,28 @@ public class Pastry extends DessertItem {
 	}
 	
 	public String toString ( ) {
-		if ( quantity > 1 ) {
-			return quantity + " " + temperature + " " + super.getName ( );
-		} else {
-			return "1 " + temperature + " " + super.getName ( );
+		String s = "";
+		if ( fives > 0 ) {
+			if ( fives > 1 ) {
+				s += fives + " Fives of ";
+			} else {
+				s += "1 Five of ";
+			}
+			s += temperature + " " + super.getName ( ) + "s" + "\n";
 		}
+		if ( singles > 0 ) {
+			if ( singles > 1 ) {
+				s += singles + " " + temperature + " " + super.getName ( ) + "s" + "\n";
+			} else {
+				s += "1 " + temperature + " " + super.getName ( ) + "\n";
+			}
+		}
+		return s;
 	}
 	
 	@Override
 	public double getCost() {
-		return singles * singlePrice + fives * fivesPrice;
+		return singles * singlesPrice + fives * fivesPrice;
 	}
 
 }

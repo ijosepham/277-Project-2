@@ -3,8 +3,8 @@ public class Cookie extends DessertItem {
 	private int quantity;
 	private int singles;
 	private int dozens;
-	private double singlePrice = 1.00;
-	private double dozenPrice = 10.00;
+	private double singlesPrice = 1.00;
+	private double dozensPrice = 10.00;
 	
 	public Cookie ( ) {
 		super ( "Cookie" );
@@ -27,24 +27,28 @@ public class Cookie extends DessertItem {
 	}
 	
 	public String toString ( ) {
-		if ( quantity % 12 == 0 ) { // if dozen(s)
-			if ( quantity == 12 ) { // if only one dozen
-				return "1 Dozen of " + super.getName ( );
+		String s = "";
+		if ( dozens > 0 ) {
+			if ( dozens > 1 ) {
+				s += dozens + " Dozens of ";
 			} else {
-				return dozens + " Dozens of " + super.getName ( );
+				s += "1 Dozen of ";
 			}
-		} else {
-			if ( quantity == 1 ) {
-				return "1 " + super.getName ( );
+			s += super.getName ( ) + "s" + "\n";
+		}
+		if ( singles > 0 ) {
+			if ( singles > 1 ) {
+				s += singles + " " + super.getName ( ) + "s" + "\n";
 			} else {
-				return quantity + " " + super.getName ( );
+				s += "1 " + super.getName ( ) + "\n";
 			}
 		}
+		return s;
 	}
 	
 	@Override
 	public double getCost() {
-		return singles * singlePrice + dozens * dozenPrice;
+		return singles * singlesPrice + dozens * dozensPrice;
 	}
 
 }
