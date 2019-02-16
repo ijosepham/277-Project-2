@@ -10,6 +10,45 @@ public class GetInput {
 		return in.nextInt ( );
 	}
 	
+	public static int getIntRangeL ( int low ) {
+		Scanner in = new Scanner ( System.in );
+		int input = 0;
+		boolean valid = false;
+		while ( ! valid ) {
+			if ( in.hasNextInt ( ) ) {
+				input = in.nextInt ( );
+				if ( input >= low ) {
+					return input;
+				} else {
+					System.out.print ( "Enter a valid choice: " );
+				}
+			} else {
+				in.next ( );
+				System.out.print ( "Enter an integer: " );
+			}
+		}
+		return input;
+	}
+	
+	public static int getIntRangeH ( int high ) {
+		Scanner in = new Scanner ( System.in );
+		int input = 0;
+		boolean valid = false;
+		while ( ! valid ) {
+			if ( in.hasNextInt ( ) ) {
+				input = in.nextInt ( );
+				if ( input <= high ) {
+					return input;
+				} else {
+					System.out.print ( "Enter a valid choice: " );
+				}
+			} else {
+				in.next ( );
+				System.out.print ( "Enter an integer: " );
+			}
+		}
+		return input;
+	}
 	public static int getIntRange ( int low, int high ) {
 		Scanner in = new Scanner ( System.in );
 		int input = 0;
