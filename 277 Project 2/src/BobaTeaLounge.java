@@ -305,7 +305,8 @@ public class BobaTeaLounge {
 	}
 	
 	public static void printOrder ( MenuItem o ) {
-		System.out.println ( "\n" + "Your Order: " + o.toString ( ) );
+		System.out.println ( "\n" + "Your Order" );
+		System.out.println ( o.toString ( ) );
 		System.out.printf ( "Price: $" + "%.2f" + "\n" + "\n", o.getCost ( ) );
 	}
 }
