@@ -45,8 +45,58 @@ public class BobaTeaLounge {
 		String milk = getTeaMilk ( );
 		String topping = getTeaTopping ( );
 		String size = getSize ( );
-		BobaDrink order = new BobaDrink ( tea, sweetness, milk, topping, size );
+		int quantity = getQuantity ( "drink" );
+		BobaDrink order = new BobaDrink ( tea, sweetness, milk, topping, size, quantity );
 		return order;
+	}
+	
+	public static CoffeeDrink orderCoffee ( ) {
+		int teaspoons = getCoffeeSweetness ( );
+		String sweetness = teaspoons + " Teaspoon";
+		String milk = getCoffeeMilk ( );
+		String size = getSize ( );
+		int quantity = getQuantity ( "cups" );
+		CoffeeDrink order = new CoffeeDrink ( sweetness, size, milk, quantity );
+		return order;
+	}
+	
+	public static Pastry orderPastry ( ) {
+		String pastry = getPastry ( );
+		String temperature = getPastryTemperature ( );
+		int quantity = getQuantity ( pastry );
+		Pastry order = new Pastry ( pastry, quantity, temperature );
+		return order;
+	}
+
+	public static Cookie orderCookie ( ) {
+		String cookie = getCookie ( );
+		int quantity = getQuantity ( cookie );
+		Cookie order = new Cookie ( cookie, quantity );
+		return order;
+	}
+	
+	public static Macaron orderMacaron ( ) {
+		String macaron = getMacaron ( );
+		int quantity = getQuantity ( macaron );
+		Macaron order = new Macaron ( macaron, quantity );
+		return order;
+	}
+	
+	public static int getQuantity ( String item ) {
+		System.out.print ( "How many " + item + "s would you like? " );
+		return GetInput.getIntRangeL ( 1 );
+	}
+	
+	public static boolean confirmOrder ( MenuItem o ) {
+		printOrder ( o );
+		System.out.print ( "Confirm Order (Y/N): " );
+		return GetInput.getYesOrNo ( );
+	}
+	
+	public static void printOrder ( MenuItem o ) {
+		System.out.println ( "\n" + "Your Order" );
+		System.out.println ( o.toString ( ) );
+		System.out.printf ( "Price: $" + "%.2f" + "\n" + "\n", o.getCost ( ) );
 	}
 	
 	public static int getMain ( ) {
@@ -157,15 +207,6 @@ public class BobaTeaLounge {
 		}
 	}
 	
-	public static CoffeeDrink orderCoffee ( ) {
-		int teaspoons = getCoffeeSweetness ( );
-		String sweetness = teaspoons + " Teaspoon";
-		String milk = getCoffeeMilk ( );
-		String size = getSize ( );
-		CoffeeDrink order = new CoffeeDrink ( sweetness, size, milk );
-		return order;
-	}
-	
 	public static int getCoffeeSweetness ( ) {
 		System.out.print ( "\n" + "How many teaspoons of sugar would you like? " );
 		return GetInput.getIntRangeL ( 0 );
@@ -209,14 +250,6 @@ public class BobaTeaLounge {
 		return GetInput.getIntRange ( 1, 3 );
 	}
 	
-	public static Pastry orderPastry ( ) {
-		String pastry = getPastry ( );
-		String temperature = getPastryTemperature ( );
-		int quantity = getDessertQuantity ( pastry );
-		Pastry order = new Pastry ( pastry, quantity, temperature );
-		return order;
-	}
-	
 	public static String getPastry ( ) {
 		System.out.println ( "Pastries" );
 		System.out.println ( "1. Croissant" );
@@ -250,18 +283,6 @@ public class BobaTeaLounge {
 		}
 	}
 	
-	public static int getDessertQuantity ( String dessert ) {
-		System.out.print ( "How many " + dessert + "s would you like? " );
-		return GetInput.getIntRangeL ( 1 );
-	}
-	
-	public static Cookie orderCookie ( ) {
-		String cookie = getCookie ( );
-		int quantity = getDessertQuantity ( cookie );
-		Cookie order = new Cookie ( cookie, quantity );
-		return order;
-	}
-	
 	public static String getCookie ( ) {
 		System.out.println ( "Cookie Varieties" );
 		System.out.println ( "1. Chocolate Chip" );
@@ -277,13 +298,6 @@ public class BobaTeaLounge {
 		}
 	}
 	
-	public static Macaron orderMacaron ( ) {
-		String macaron = getMacaron ( );
-		int quantity = getDessertQuantity ( macaron );
-		Macaron order = new Macaron ( macaron, quantity );
-		return order;
-	}
-	
 	public static String getMacaron ( ) {
 		System.out.println ( "Macaron Flavors" );
 		System.out.println ( "1. Green Tea" );
@@ -297,17 +311,5 @@ public class BobaTeaLounge {
 		} else {
 			return "Vanilla Macaron";
 		}
-	}
-	
-	public static boolean confirmOrder ( MenuItem o ) {
-		printOrder ( o );
-		System.out.print ( "Confirm Order (Y/N): " );
-		return GetInput.getYesOrNo ( );
-	}
-	
-	public static void printOrder ( MenuItem o ) {
-		System.out.println ( "\n" + "Your Order" );
-		System.out.println ( o.toString ( ) );
-		System.out.printf ( "Price: $" + "%.2f" + "\n" + "\n", o.getCost ( ) );
 	}
 }
