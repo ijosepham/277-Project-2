@@ -56,12 +56,13 @@ public class CashRegister extends ArrayList < MenuItem > {
 		int orderSize = orderSize ( );
 		MenuItem order = null;
 		double price = 0;
-		System.out.println ( "Order Receipt" );
+		System.out.println ( "\n" + "Order Receipt" );
 		for ( int i = 0; i < orderSize; i ++ ) {
 			order = getOrder ( i );
 			price = order.getCost ( );
 			System.out.printf ( order + "   $" + "%.2f" + "\n", price );
 		}
+		System.out.printf ( "\n" + "Balance: $" + "%.2f" + "\n" + "\n",calculateBalance ( ) );
 	}
 	
 	public void clearRegister ( ) {
