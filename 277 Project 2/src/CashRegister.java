@@ -49,6 +49,8 @@ public class CashRegister extends ArrayList < MenuItem > {
 			balance += getOrder ( i ).getCost ( );
 		}
 		
+		balance *= 1.1025;
+		
 		return balance;
 	}
 	
@@ -62,7 +64,7 @@ public class CashRegister extends ArrayList < MenuItem > {
 			price = order.getCost ( );
 			System.out.printf ( order + "   $" + "%.2f" + "\n", price );
 		}
-		System.out.printf ( "\n" + "Balance: $" + "%.2f" + "\n" + "\n",calculateBalance ( ) );
+		System.out.printf ( "\n" + "Balance: $" + "%.2f" + "\n" + "\n", calculateBalance ( ) );
 	}
 	
 	public void clearRegister ( ) {
