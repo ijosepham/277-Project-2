@@ -1,8 +1,7 @@
 /**
- * remove plural thing, pass in only the base name 
- * move plural thing to dessert tostring to just add the "s" 
- * in cash register, combine orders with first instance 
- * 		of same base name.
+ * allows customers to mix and match desserts
+ * e.g. 3 cc cookies, 1 sugar, 1 oatmeal
+ * e.g. 1 hot croiss, 1 cold dough, 3 warm muffin
  */
 
 public class BobaTeaLounge {
