@@ -50,4 +50,10 @@ public class Cookie extends DessertItem {
 	public double getCost() {
 		return singles * singlesPrice + dozens * dozensPrice;
 	}
+	
+	@Override
+	public void incrementQuantity ( ) {
+		quantity += 1;
+		
+	}
 }

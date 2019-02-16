@@ -39,8 +39,8 @@ public class BobaDrink extends DrinkItem {
 	}
 
 	@Override
-	public void setQuantity ( int q ) {
-		quantity = q;
+	public void incrementQuantity ( ) {
+		quantity += 1;
 		
 	}
 

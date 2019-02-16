@@ -50,4 +50,10 @@ public class Macaron extends DessertItem {
 	public double getCost() {
 		return singles * singlesPrice + trios * triosPrice;
 	}
+	
+	@Override
+	public void incrementQuantity ( ) {
+		quantity += 1;
+		
+	}
 }
