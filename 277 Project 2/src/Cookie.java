@@ -56,4 +56,15 @@ public class Cookie extends DessertItem {
 		quantity += 1;
 		
 	}
+	
+	@Override
+	public boolean equals ( MenuItem m ) {
+		if ( m instanceof Cookie ) {
+			Cookie c = ( Cookie ) m;
+			if ( this.getName ( ) == c.getName ( ) ) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

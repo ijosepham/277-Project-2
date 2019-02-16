@@ -56,4 +56,15 @@ public class Macaron extends DessertItem {
 		quantity += 1;
 		
 	}
+	
+	@Override
+	public boolean equals ( MenuItem m ) {
+		if ( m instanceof Macaron ) {
+			Macaron mac = ( Macaron ) m;
+			if ( this.getName ( ) == mac.getName ( ) ) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

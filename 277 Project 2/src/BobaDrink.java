@@ -43,5 +43,23 @@ public class BobaDrink extends DrinkItem {
 		quantity += 1;
 		
 	}
-
+	
+	@Override
+	public boolean equals ( MenuItem m ) {
+		if ( m instanceof BobaDrink ) {
+			BobaDrink b = ( BobaDrink ) m;
+			if ( this.getSweetness ( ) == b.getSweetness ( ) ) {
+				if ( this.getSize ( ) == b.getSize ( ) ) {
+					if ( this.getName ( ) == b.getName ( ) ) {
+						if ( this.topping == b.topping ) {
+							if ( this.milk == b.milk ) {
+								return true;
+							}
+						}
+					}
+				}
+			}
+		}
+		return false;
+	}
 }

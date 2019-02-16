@@ -57,4 +57,17 @@ public class Pastry extends DessertItem {
 		quantity += 1;
 		
 	}
+
+	@Override
+	public boolean equals ( MenuItem m ) {
+		if ( m instanceof Pastry ) {
+			Pastry p = ( Pastry ) m;
+			if ( this.getName ( ) == p.getName ( ) ) {
+				if ( this.temperature == p.temperature ) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 }

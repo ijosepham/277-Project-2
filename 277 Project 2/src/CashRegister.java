@@ -11,7 +11,16 @@ public class CashRegister extends ArrayList < MenuItem > {
 	}
 	
 	public MenuItem addOrder ( MenuItem order ) {
-		super.add ( order );
+		boolean added = false;
+		for ( int i = 0; i < orderSize ( ); i ++ ) {
+			if ( order.equals( getOrder ( i ) ) ) {
+				order.incrementQuantity ( );
+				added = true;
+			}
+		}
+		if ( ! added ) {
+			super.add ( order );
+		}
 		return order;
 	}
 	

@@ -34,4 +34,20 @@ public class CoffeeDrink extends DrinkItem {
 		quantity += 1;
 		
 	}
+
+	public boolean equals ( MenuItem m ) {
+		if ( m instanceof CoffeeDrink ) {
+			CoffeeDrink b = ( CoffeeDrink ) m;
+			if ( this.getSweetness ( ) == b.getSweetness ( ) ) {
+				if ( this.getSize ( ) == b.getSize ( ) ) {
+					if ( this.getName ( ) == b.getName ( ) ) {
+						if ( this.base == b.base ) {
+							return true;
+						}
+					}
+				}
+			}
+		}
+		return false;
+	}
 }
