@@ -29,7 +29,6 @@ public class BobaTeaLounge {
 					order = orderMacaron ( );
 				}
 			}
-			System.out.println(order);
 			if ( confirmOrder ( order ) ) {
 				cashRegister.addOrder ( order );
 			}
@@ -45,7 +44,7 @@ public class BobaTeaLounge {
 		String milk = getTeaMilk ( );
 		String topping = getTeaTopping ( );
 		String size = getSize ( );
-		int quantity = getQuantity ( "drink" );
+		int quantity = getQuantity ( );
 		BobaDrink order = new BobaDrink ( tea, sweetness, milk, topping, size, quantity );
 		return order;
 	}
@@ -55,7 +54,7 @@ public class BobaTeaLounge {
 		String sweetness = teaspoons + " Teaspoon";
 		String milk = getCoffeeMilk ( );
 		String size = getSize ( );
-		int quantity = getQuantity ( "cups" );
+		int quantity = getQuantity ( );
 		CoffeeDrink order = new CoffeeDrink ( sweetness, size, milk, quantity );
 		return order;
 	}
@@ -63,27 +62,27 @@ public class BobaTeaLounge {
 	public static Pastry orderPastry ( ) {
 		String pastry = getPastry ( );
 		String temperature = getPastryTemperature ( );
-		int quantity = getQuantity ( pastry );
+		int quantity = getQuantity ( );
 		Pastry order = new Pastry ( pastry, quantity, temperature );
 		return order;
 	}
 
 	public static Cookie orderCookie ( ) {
 		String cookie = getCookie ( );
-		int quantity = getQuantity ( cookie );
+		int quantity = getQuantity ( );
 		Cookie order = new Cookie ( cookie, quantity );
 		return order;
 	}
 	
 	public static Macaron orderMacaron ( ) {
 		String macaron = getMacaron ( );
-		int quantity = getQuantity ( macaron );
+		int quantity = getQuantity ( );
 		Macaron order = new Macaron ( macaron, quantity );
 		return order;
 	}
 	
-	public static int getQuantity ( String item ) {
-		System.out.print ( "How many " + item + "s would you like? " );
+	public static int getQuantity () {
+		System.out.print ( "How many would you like? " );
 		return GetInput.getIntRangeL ( 1 );
 	}
 	
@@ -108,14 +107,14 @@ public class BobaTeaLounge {
 	}
 	
 	public static int getDrink ( ) {
-		System.out.println ( "Drinks" );
+		System.out.println ( "\n" + "Drinks" );
 		System.out.println ( "1. Tea" );
 		System.out.println ( "2. Coffee" );
 		return GetInput.getIntRange ( 1, 2 );
 	}
 
 	public static String getTeaBase ( ) {
-		System.out.println ( "Tea Bases" );
+		System.out.println ( "\n" + "Tea Bases" );
 		System.out.println ( "1. Green Tea" );
 		System.out.println ( "2. Black Tea" );
 		System.out.println ( "3. Jasmine Green Tea" );
@@ -136,7 +135,7 @@ public class BobaTeaLounge {
 	}
 	
 	public static String getTeaSweetness ( ) {
-		System.out.println ( "Tea Sweetness" );
+		System.out.println ( "\n" + "Tea Sweetness" );
 		System.out.println ( "1. Full Sweetness" );
 		System.out.println ( "2. 75% Sweetness" );
 		System.out.println ( "3. 50% Sweetness" );
@@ -157,7 +156,7 @@ public class BobaTeaLounge {
 	}
 	
 	public static String getTeaMilk ( ) {
-		System.out.println ( "Tea Milk Options" );
+		System.out.println ( "\n" + "Tea Milk Options" );
 		System.out.println ( "1. Whole Milk" );
 		System.out.println ( "2. Half-and-Half Milk" );
 		System.out.println ( "3. Skim Milk" );
@@ -181,7 +180,7 @@ public class BobaTeaLounge {
 	}
 	
 	public static String getTeaTopping ( ) {
-		System.out.println ( "Tea Toppings" );
+		System.out.println ( "\n" + "Tea Toppings" );
 		System.out.println ( "1. Boba" );
 		System.out.println ( "2. Popping Boba" );
 		System.out.println ( "3. Grass Jelly" );
@@ -209,11 +208,13 @@ public class BobaTeaLounge {
 	
 	public static int getCoffeeSweetness ( ) {
 		System.out.print ( "\n" + "How many teaspoons of sugar would you like? " );
-		return GetInput.getIntRangeL ( 0 );
+		int sw = GetInput.getIntRangeL ( 0 );
+		System.out.println ( "" );
+		return sw;
 	}
 	
 	public static String getCoffeeMilk ( ) {
-		System.out.println ( "Coffee Bases" );
+		System.out.println ( "\n" + "Coffee Bases" );
 		System.out.println ( "1. Water" );
 		System.out.println ( "2. Whole Milk" );
 		System.out.println ( "3. Almond Milk" );
@@ -228,7 +229,7 @@ public class BobaTeaLounge {
 	}
 	
 	public static String getSize ( ) {
-		System.out.println ( "Sizes" );
+		System.out.println ( "\n" + "Sizes" );
 		System.out.println ( "1. Small   $3.00" );
 		System.out.println ( "2. Medium  $3.50" );
 		System.out.println ( "3. Large   $4.00" );
@@ -243,7 +244,7 @@ public class BobaTeaLounge {
 	}
 	
 	public static int getDessert ( ) {
-		System.out.println ( "Desserts" );
+		System.out.println ( "\n" + "Desserts" );
 		System.out.println ( "1. Pastry" );
 		System.out.println ( "2. Cookie" );
 		System.out.println ( "3. Macaron" );
@@ -251,7 +252,7 @@ public class BobaTeaLounge {
 	}
 	
 	public static String getPastry ( ) {
-		System.out.println ( "Pastries" );
+		System.out.println ( "\n" + "Pastries" );
 		System.out.println ( "1. Croissant" );
 		System.out.println ( "2. Muffin" );
 		System.out.println ( "3. Doughnut" );
@@ -266,7 +267,7 @@ public class BobaTeaLounge {
 	}
 	
 	public static String getPastryTemperature ( ) {
-		System.out.println ( "Temperature" );
+		System.out.println ( "\n" + "Temperature" );
 		System.out.println ( "1. Hot" );
 		System.out.println ( "2. Warm" );
 		System.out.println ( "3. Cool" );
@@ -284,7 +285,7 @@ public class BobaTeaLounge {
 	}
 	
 	public static String getCookie ( ) {
-		System.out.println ( "Cookie Varieties" );
+		System.out.println ( "\n" + "Cookie Varieties" );
 		System.out.println ( "1. Chocolate Chip" );
 		System.out.println ( "2. Oatmeal" );
 		System.out.println ( "3. Sugar" );
@@ -299,7 +300,7 @@ public class BobaTeaLounge {
 	}
 	
 	public static String getMacaron ( ) {
-		System.out.println ( "Macaron Flavors" );
+		System.out.println ( "\n" + "Macaron Flavors" );
 		System.out.println ( "1. Green Tea" );
 		System.out.println ( "2. Chocolate" );
 		System.out.println ( "3. Vanilla" );
