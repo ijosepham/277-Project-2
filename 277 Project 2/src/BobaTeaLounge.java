@@ -29,8 +29,9 @@ public class BobaTeaLounge {
 					order = orderMacaron ( );
 				}
 			}
+			System.out.println(order);
 			if ( confirmOrder ( order ) ) {
-				cashRegister.add ( order );
+				cashRegister.addOrder ( order );
 			}
 			cashRegister.printReceipt ( );
 			menuChoice = getMain ( );
