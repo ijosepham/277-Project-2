@@ -8,9 +8,9 @@ public class CoffeeDrink extends DrinkItem {
 		quantity = 1;
 	}
 	
-	public CoffeeDrink ( String sw, String sz, String b ) {
+	public CoffeeDrink ( String sw, String sz, String b, int q ) {
 		super ( "Coffee", sw, sz );
-		quantity = 1;
+		quantity = q;
 		base = b;
 	}
 	

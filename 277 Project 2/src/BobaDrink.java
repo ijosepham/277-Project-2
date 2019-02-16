@@ -11,11 +11,11 @@ public class BobaDrink extends DrinkItem {
 		quantity = 1;
 	}
 	
-	public BobaDrink ( String n, String sw, String m, String t, String sz ) {
+	public BobaDrink ( String n, String sw, String m, String t, String sz, int q ) {
 		super ( n, sw, sz );
 		topping = t;
 		milk = m;
-		quantity = 1;
+		quantity = q;
 	}
 	
 	public String toString ( ) {
