@@ -30,21 +30,20 @@ public class Pastry extends DessertItem {
 	public String toString ( ) {
 		String s = "";
 		if ( fives > 0 ) {
-			if ( fives > 1 ) {
-				s += fives + " Fives of ";
-			} else {
-				s += "1 Five of ";
-			}
-			s += temperature + " " + super.getName ( ) + "s" + "\n";
+			s += fives + " x Five " + temperature + " " + super.getName ( ) + "s";
 		}
 		if ( singles > 0 ) {
-			if ( singles > 1 ) {
-				s += singles + " " + temperature + " " + super.getName ( ) + "s" + "\n";
-			} else {
-				s += "1 " + temperature + " " + super.getName ( ) + "\n";
-			}
+			s += singles + " x " + temperature + " " + super.getName ( );
 		}
 		return s;
+	}
+	
+	public double getSinglesCost ( ) {
+		return  singles * singlesPrice;
+	}
+	
+	public double getFivesCost ( ) {
+		return fives * fivesPrice;
 	}
 	
 	@Override
@@ -55,6 +54,8 @@ public class Pastry extends DessertItem {
 	@Override
 	public void incrementQuantity ( ) {
 		quantity += 1;
+		singles = quantity % 5;
+		fives = quantity / 5;
 		
 	}
 

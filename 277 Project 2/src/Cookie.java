@@ -29,19 +29,10 @@ public class Cookie extends DessertItem {
 	public String toString ( ) {
 		String s = "";
 		if ( dozens > 0 ) {
-			if ( dozens > 1 ) {
-				s += dozens + " Dozens of ";
-			} else {
-				s += "1 Dozen of ";
-			}
-			s += super.getName ( ) + "s" + "\n";
+			s += dozens + " x Dozen " + " " + super.getName ( ) + "s";
 		}
 		if ( singles > 0 ) {
-			if ( singles > 1 ) {
-				s += singles + " " + super.getName ( ) + "s" + "\n";
-			} else {
-				s += "1 " + super.getName ( ) + "\n";
-			}
+			s += singles + " x " + " " + super.getName ( );
 		}
 		return s;
 	}
@@ -54,6 +45,8 @@ public class Cookie extends DessertItem {
 	@Override
 	public void incrementQuantity ( ) {
 		quantity += 1;
+		singles = quantity % 12;
+		dozens = quantity / 12;
 		
 	}
 	
