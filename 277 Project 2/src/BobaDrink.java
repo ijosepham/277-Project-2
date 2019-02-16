@@ -40,8 +40,8 @@ public class BobaDrink extends DrinkItem {
 	}
 
 	@Override
-	public void incrementQuantity ( ) {
-		quantity += 1;
+	public void combineOrders ( int q ) {
+		quantity += q;
 		
 	}
 	
@@ -62,5 +62,10 @@ public class BobaDrink extends DrinkItem {
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public int getQuantity() {
+		return quantity;
 	}
 }

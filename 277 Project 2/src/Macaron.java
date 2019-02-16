@@ -20,6 +20,10 @@ public class Macaron extends DessertItem {
 		threes = quantity / 3;
 	}
 	
+	public int getQuantity ( ) {
+		return quantity;
+	}
+	
 	public void setQuantity ( int q ) {
 		quantity = q;
 		singles = quantity % 3;
@@ -43,8 +47,8 @@ public class Macaron extends DessertItem {
 	}
 	
 	@Override
-	public void incrementQuantity ( ) {
-		quantity += 1;
+	public void combineOrders ( int q ) {
+		quantity += q;
 		singles = quantity % 3;
 		threes = quantity / 3;
 		

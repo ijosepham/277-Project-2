@@ -20,6 +20,10 @@ public class Cookie extends DessertItem {
 		dozens = quantity / 12;
 	}
 	
+	public int getQuantity ( ) {
+		return quantity;
+	}
+	
 	public void setQuantity ( int q ) {
 		quantity = q;
 		singles = quantity % 12;
@@ -43,8 +47,8 @@ public class Cookie extends DessertItem {
 	}
 	
 	@Override
-	public void incrementQuantity ( ) {
-		quantity += 1;
+	public void combineOrders ( int q ) {
+		quantity += q;
 		singles = quantity % 12;
 		dozens = quantity / 12;
 		

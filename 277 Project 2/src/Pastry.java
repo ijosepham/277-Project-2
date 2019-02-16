@@ -21,6 +21,10 @@ public class Pastry extends DessertItem {
 		temperature = t;
 	}
 	
+	public int getQuantity ( ) {
+		return quantity;
+	}
+	
 	public void setQuantity ( int q ) {
 		quantity = q;
 		singles = quantity % 5;
@@ -52,8 +56,8 @@ public class Pastry extends DessertItem {
 	}
 
 	@Override
-	public void incrementQuantity ( ) {
-		quantity += 1;
+	public void combineOrders ( int q ) {
+		quantity += q;
 		singles = quantity % 5;
 		fives = quantity / 5;
 		

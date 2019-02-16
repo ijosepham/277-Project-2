@@ -32,9 +32,8 @@ public class CoffeeDrink extends DrinkItem {
 		return cost;
 	}
 
-	@Override
-	public void incrementQuantity ( ) {
-		quantity += 1;
+	public void combineOrders ( int q ) {
+		quantity += q;
 		
 	}
 
@@ -52,5 +51,10 @@ public class CoffeeDrink extends DrinkItem {
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public int getQuantity() {
+		return quantity;
 	}
 }
