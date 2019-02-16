@@ -48,8 +48,7 @@ public class Pastry extends DessertItem {
 	}
 	
 	@Override
-	public double getCost() {
+	public double getCost ( ) {
 		return singles * singlesPrice + fives * fivesPrice;
 	}
-
 }

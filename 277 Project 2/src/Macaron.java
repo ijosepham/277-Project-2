@@ -50,5 +50,4 @@ public class Macaron extends DessertItem {
 	public double getCost() {
 		return singles * singlesPrice + trios * triosPrice;
 	}
-
 }

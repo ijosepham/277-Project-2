@@ -1,13 +1,16 @@
 
 public class CoffeeDrink extends DrinkItem {
 	private String base;
+	private int quantity;
 	
 	public CoffeeDrink ( ) {
 		super ( );
+		quantity = 1;
 	}
 	
 	public CoffeeDrink ( String sw, String sz, String b ) {
 		super ( "Coffee", sw, sz );
+		quantity = 1;
 		base = b;
 	}
 	
@@ -24,6 +27,12 @@ public class CoffeeDrink extends DrinkItem {
 		} else {
 			return 4.00;
 		} 
+	}
+
+	@Override
+	public void setQuantity ( int q ) {
+		quantity = q;
+		
 	}
 
 }

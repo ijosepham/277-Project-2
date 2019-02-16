@@ -50,5 +50,4 @@ public class Cookie extends DessertItem {
 	public double getCost() {
 		return singles * singlesPrice + dozens * dozensPrice;
 	}
-
 }

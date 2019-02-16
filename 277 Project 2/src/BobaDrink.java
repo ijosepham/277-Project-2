@@ -1,18 +1,21 @@
 
 public class BobaDrink extends DrinkItem {
 	private String topping;
+	private int quantity;
 	private String milk;
 	
 	public BobaDrink ( ) {
 		super ( );
 		topping = "";
 		milk = "";
+		quantity = 1;
 	}
 	
 	public BobaDrink ( String n, String sw, String m, String t, String sz ) {
 		super ( n, sw, sz );
 		topping = t;
 		milk = m;
+		quantity = 1;
 	}
 	
 	public String toString ( ) {
@@ -33,6 +36,12 @@ public class BobaDrink extends DrinkItem {
 			cost += 4.00;
 		} 
 		return cost;
+	}
+
+	@Override
+	public void setQuantity ( int q ) {
+		quantity = q;
+		
 	}
 
 }
