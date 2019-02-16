@@ -167,7 +167,7 @@ public class BobaTeaLounge {
 	
 	public static int getCoffeeSweetness ( ) {
 		System.out.print ( "\n" + "How many teaspoons of sugar would you like? " );
-		return GetInput.getInt ( );
+		return GetInput.getIntRangeL ( 0 );
 	}
 	
 	public static String getCoffeeMilk ( ) {
@@ -251,7 +251,7 @@ public class BobaTeaLounge {
 	
 	public static int getDessertQuantity ( String dessert ) {
 		System.out.print ( "How many " + dessert + "s would you like? " );
-		return GetInput.getInt ( );
+		return GetInput.getIntRangeL ( 1 );
 	}
 	
 	public static Cookie orderCookie ( ) {
