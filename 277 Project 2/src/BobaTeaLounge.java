@@ -35,6 +35,7 @@ public class BobaTeaLounge {
 			cashRegister.printReceipt ( );
 			menuChoice = getMain ( );
 		}
+		cashRegister.printReceipt ( );
 		System.out.println ( "Thank you for coming to Boba Tea Lounge. Come again!" );
 	}
 	
@@ -82,7 +83,7 @@ public class BobaTeaLounge {
 	}
 	
 	public static int getQuantity () {
-		System.out.print ( "How many would you like? " );
+		System.out.print ( "\n" + "How many would you like? " );
 		return GetInput.getIntRangeL ( 1 );
 	}
 	
