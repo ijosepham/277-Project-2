@@ -19,7 +19,7 @@ public class BobaDrink extends DrinkItem {
 	}
 	
 	public String toString ( ) {
-		return super.getSize ( ) + " " + topping + " " + super.getName( ) + " with " + milk;
+		return quantity + " x " + super.getSize ( ) + " " + topping + " " + super.getName( ) + " with " + milk;
 	}
 	
 	@Override
@@ -35,6 +35,7 @@ public class BobaDrink extends DrinkItem {
 		} else {
 			cost += 4.00;
 		} 
+		cost *= quantity;
 		return cost;
 	}
 
