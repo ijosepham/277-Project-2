@@ -1,5 +1,5 @@
 
-public abstract class DrinkItem extends MenuItem {
+public abstract class DrinkItem {
 	private String name;
 	private String sweetness;
 	private String size;
