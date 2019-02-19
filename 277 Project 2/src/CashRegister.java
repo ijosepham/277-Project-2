@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class CashRegister extends ArrayList < MenuItem > {
+public class CashRegister extends ArrayList < Object > {
 	
 	public CashRegister ( ) {
 		super ( );
@@ -10,33 +10,24 @@ public class CashRegister extends ArrayList < MenuItem > {
 		return super.size ( );
 	}
 	
-	public MenuItem addOrder ( MenuItem order ) {
-		boolean added = false;
-		for ( int i = 0; i < orderSize ( ); i ++ ) {
-			if ( order.equals( getOrder ( i ) ) ) {
-				getOrder ( i ).combineOrders ( order.getQuantity ( ) );
-				added = true;
-			}
-		}
-		if ( ! added ) {
-			super.add ( order );
-		}
+	public Object addOrder ( Object order ) {
+		super.add ( order );
 		return order;
 	}
 	
-	public MenuItem getOrder ( int index ) {
+	public Object getOrder ( int index ) {
 		return super.get ( index );
 	}
 	
-	public MenuItem removeOrder ( ) {
+	public Object removeOrder ( ) {
 		return super.remove ( 0 );
 	}
 	
-	public MenuItem removeOrder ( int index ) {
+	public Object removeOrder ( int index ) {
 		return super.remove ( index );
 	}
 	
-	public MenuItem removeOrder ( MenuItem order ) {
+	public Object removeOrder ( Object order ) {
 		super.remove ( order );
 		return order;
 	}
@@ -44,24 +35,39 @@ public class CashRegister extends ArrayList < MenuItem > {
 	public double calculateBalance ( ) {
 		int orderSize = orderSize ( );
 		double balance = 0;
+		Object o = null;
 		
 		for ( int i = 0; i < orderSize; i ++ ) {
-			balance += getOrder ( i ).getCost ( );
+			o = getOrder ( i );
+			if ( o instanceof DrinkItem ) {
+				DrinkItem d = ( DrinkItem ) o;
+				balance += d.getCost ( );
+			} else if ( o instanceof DessertItem ) {
+				DessertItem d = ( DessertItem ) o;
+				balance += d.getCost ( );
+			}
 		}
 		
 		balance *= 1.1025;
-		
 		return balance;
 	}
 	
 	public void printReceipt ( ) {
 		int orderSize = orderSize ( );
-		MenuItem order = null;
+		Object order = null;
 		double price = 0;
 		System.out.println ( "\n" + "Order Receipt" );
 		for ( int i = 0; i < orderSize; i ++ ) {
+			
 			order = getOrder ( i );
-			price = order.getCost ( );
+			if ( order instanceof DrinkItem ) {
+				DrinkItem d = ( DrinkItem ) order;
+				price = d.getCost ( );
+			} else if ( order instanceof DessertItem ) {
+				DessertItem d = ( DessertItem ) order;
+				price = d.getCost ( );
+			}
+			
 			System.out.printf ( order + "   $" + "%.2f" + "\n", price );
 		}
 		System.out.printf ( "\n" + "Balance: $" + "%.2f" + "\n" + "\n", calculateBalance ( ) );

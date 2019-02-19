@@ -1,23 +1,17 @@
 
-public class Macaron extends DessertItem {
+public class Macaron extends Cookie {
 	private int quantity;
-	private int singles;
-	private int threes;
-	private double singlesPrice = 1.00;
-	private double threesPrice = 2.50;
+	private double pricePerOne = 1.00;
+	private double pricePerThree = 2.50;
 	
 	public Macaron ( ) {
-		super ( "Macaron" );
+		super ( "Macaron", 1 );
 		quantity = 1;
-		singles = 1;
-		threes = 0;
 	}
 	
 	public Macaron ( String m, int q ) {
-		super ( m );
+		super ( m, q );
 		quantity = q;
-		singles = quantity % 3;
-		threes = quantity / 3;
 	}
 	
 	public int getQuantity ( ) {
@@ -26,38 +20,32 @@ public class Macaron extends DessertItem {
 	
 	public void setQuantity ( int q ) {
 		quantity = q;
-		singles = quantity % 3;
-		threes = quantity / 3;
 	}
 	
 	public String toString ( ) {
+		int threes = quantity / 3;
+		int singles = quantity % 3;
 		String s = "";
 		if ( threes > 0 ) {
-			s += threes + " x Three " + super.getName ( ) + "s";
+			s += threes + " x Three " + super.getName ( ) + "s" + "\n";
 		}
 		if ( singles > 0 ) {
-			s += singles + " x " + super.getName ( );
+			s += singles + " x " + super.getName ( ) + "\n";
 		}
 		return s;
 	}
 	
 	@Override
-	public double getCost() {
-		return singles * singlesPrice + threes * threesPrice;
+	public double getCost ( ) {
+		int threes = quantity / 3;
+		int singles = quantity % 3;
+		return singles * pricePerOne + threes * pricePerThree;
 	}
 	
 	@Override
-	public void combineOrders ( int q ) {
-		quantity += q;
-		singles = quantity % 3;
-		threes = quantity / 3;
-		
-	}
-	
-	@Override
-	public boolean equals ( MenuItem m ) {
-		if ( m instanceof Macaron ) {
-			Macaron mac = ( Macaron ) m;
+	public boolean equals ( Object o ) {
+		if ( o instanceof Macaron ) {
+			Macaron mac = ( Macaron ) o;
 			if ( this.getName ( ) == mac.getName ( ) ) {
 				return true;
 			}

@@ -1,23 +1,16 @@
 
 public class Cookie extends DessertItem {
 	private int quantity;
-	private int singles;
-	private int dozens;
-	private double singlesPrice = 1.00;
-	private double dozensPrice = 10.00;
+	private double pricePerDozen = 10.00;
 	
 	public Cookie ( ) {
 		super ( "Cookie" );
 		quantity = 1;
-		singles = 1;
-		dozens = 0;
 	}
 	
 	public Cookie ( String c, int q ) {
 		super ( c );
 		quantity = q;
-		singles = quantity % 12;
-		dozens = quantity / 12;
 	}
 	
 	public int getQuantity ( ) {
@@ -26,38 +19,23 @@ public class Cookie extends DessertItem {
 	
 	public void setQuantity ( int q ) {
 		quantity = q;
-		singles = quantity % 12;
-		dozens = quantity / 12;
 	}
 	
 	public String toString ( ) {
-		String s = "";
-		if ( dozens > 0 ) {
-			s += dozens + " x Dozen " + " " + super.getName ( ) + "s";
-		}
-		if ( singles > 0 ) {
-			s += singles + " x " + " " + super.getName ( );
-		}
+		String s = quantity + " x Dozen of " + super.getName ( ) + "s";
 		return s;
 	}
 	
 	@Override
 	public double getCost() {
-		return singles * singlesPrice + dozens * dozensPrice;
+		int dozens = quantity / 12;
+		return dozens * pricePerDozen;
 	}
 	
 	@Override
-	public void combineOrders ( int q ) {
-		quantity += q;
-		singles = quantity % 12;
-		dozens = quantity / 12;
-		
-	}
-	
-	@Override
-	public boolean equals ( MenuItem m ) {
-		if ( m instanceof Cookie ) {
-			Cookie c = ( Cookie ) m;
+	public boolean equals ( Object o ) {
+		if ( o instanceof Cookie ) {
+			Cookie c = ( Cookie ) o;
 			if ( this.getName ( ) == c.getName ( ) ) {
 				return true;
 			}

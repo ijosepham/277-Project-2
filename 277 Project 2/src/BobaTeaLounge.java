@@ -6,8 +6,10 @@
 
 public class BobaTeaLounge {
 	public static void main ( String [ ] args ) {
+		String s = "Grass Jelly";
+		System.out.println(s.contains("Boba"));
 		int menuChoice = getMain ( );
-		MenuItem order = null;
+		Object order = null;
 		CashRegister cashRegister  = new CashRegister ( );
 		
 		while ( menuChoice != 3 ) {
@@ -69,7 +71,7 @@ public class BobaTeaLounge {
 
 	public static Cookie orderCookie ( ) {
 		String cookie = getCookie ( );
-		int quantity = getQuantity ( );
+		int quantity = getCookieQuantity ( );
 		Cookie order = new Cookie ( cookie, quantity );
 		return order;
 	}
@@ -81,21 +83,32 @@ public class BobaTeaLounge {
 		return order;
 	}
 	
-	public static int getQuantity () {
+	public static int getQuantity ( ) {
 		System.out.print ( "\n" + "How many would you like? " );
 		return GetInput.getIntRangeL ( 1 );
 	}
 	
-	public static boolean confirmOrder ( MenuItem o ) {
+	public static int getCookieQuantity ( ) {
+		System.out.print ( "\n" + "How many dozens would you like? " );
+		return GetInput.getIntRangeL ( 1 );
+	}
+	
+	public static boolean confirmOrder ( Object o ) {
 		printOrder ( o );
 		System.out.print ( "Confirm Order (Y/N): " );
 		return GetInput.getYesOrNo ( );
 	}
 	
-	public static void printOrder ( MenuItem o ) {
+	public static void printOrder ( Object o ) {
 		System.out.println ( "\n" + "Your Order" );
 		System.out.println ( o.toString ( ) );
-		System.out.printf ( "Price: $" + "%.2f" + "\n" + "\n", o.getCost ( ) );
+		if ( o instanceof DrinkItem ) {
+			DrinkItem d = ( DrinkItem ) o;
+			System.out.printf ( "Price: $" + "%.2f" + "\n" + "\n", d.getCost ( ) );
+		} else if ( o instanceof DessertItem ) {
+			DessertItem d = ( DessertItem ) o;
+			System.out.printf ( "Price: $" + "%.2f" + "\n" + "\n", d.getCost ( ) );
+		}
 	}
 	
 	public static int getMain ( ) {

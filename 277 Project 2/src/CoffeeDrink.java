@@ -1,45 +1,34 @@
 
 public class CoffeeDrink extends DrinkItem {
 	private String base;
-	private int quantity;
 	
 	public CoffeeDrink ( ) {
 		super ( );
-		quantity = 1;
 	}
 	
 	public CoffeeDrink ( String sw, String sz, String b, int q ) {
 		super ( "Coffee", sw, sz );
-		quantity = q;
 		base = b;
 	}
 	
 	public String toString ( ) {
-		return quantity + " x " + super.getSize ( ) + " " + base + " based Coffee with " + super.getSweetness ( ) + " of Sugar";
+		return super.getSize ( ) + " " + base + " based Coffee with " + super.getSweetness ( ) + " of Sugar";
 	}
 	
 	@Override
 	public double getCost ( ) {
-		double cost = 0;
 		if ( super.getSize( ) == "Small" ) {
-			cost += 3.00;
+			return 3.00;
 		} else if ( super.getSize( ) == "Medium" ) {
-			cost += 3.50;
+			return 3.50;
 		} else {
-			cost += 4.00;
+			return 4.00;
 		} 
-		cost *= quantity;
-		return cost;
 	}
 
-	public void combineOrders ( int q ) {
-		quantity += q;
-		
-	}
-
-	public boolean equals ( MenuItem m ) {
-		if ( m instanceof CoffeeDrink ) {
-			CoffeeDrink b = ( CoffeeDrink ) m;
+	public boolean equals ( Object o ) {
+		if ( o instanceof CoffeeDrink ) {
+			CoffeeDrink b = ( CoffeeDrink ) o;
 			if ( this.getSweetness ( ) == b.getSweetness ( ) ) {
 				if ( this.getSize ( ) == b.getSize ( ) ) {
 					if ( this.getName ( ) == b.getName ( ) ) {
@@ -51,10 +40,5 @@ public class CoffeeDrink extends DrinkItem {
 			}
 		}
 		return false;
-	}
-
-	@Override
-	public int getQuantity() {
-		return quantity;
 	}
 }
