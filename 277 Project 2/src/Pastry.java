@@ -33,17 +33,4 @@ public class Pastry extends DessertItem {
 	public double getCost ( ) {
 		return quantity * price;
 	}
-
-	@Override
-	public boolean equals ( Object o ) {
-		if ( o instanceof Pastry ) {
-			Pastry p = ( Pastry ) o;
-			if ( this.getName ( ) == p.getName ( ) ) {
-				if ( this.temperature == p.temperature ) {
-					return true;
-				}
-			}
-		}
-		return false;
-	}
 }

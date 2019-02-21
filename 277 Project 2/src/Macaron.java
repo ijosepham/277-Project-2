@@ -41,15 +41,4 @@ public class Macaron extends Cookie {
 		int singles = quantity % 3;
 		return singles * pricePerOne + threes * pricePerThree;
 	}
-	
-	@Override
-	public boolean equals ( Object o ) {
-		if ( o instanceof Macaron ) {
-			Macaron mac = ( Macaron ) o;
-			if ( this.getName ( ) == mac.getName ( ) ) {
-				return true;
-			}
-		}
-		return false;
-	}
 }

@@ -31,15 +31,4 @@ public class Cookie extends DessertItem {
 		int dozens = quantity / 12;
 		return dozens * pricePerDozen;
 	}
-	
-	@Override
-	public boolean equals ( Object o ) {
-		if ( o instanceof Cookie ) {
-			Cookie c = ( Cookie ) o;
-			if ( this.getName ( ) == c.getName ( ) ) {
-				return true;
-			}
-		}
-		return false;
-	}
 }

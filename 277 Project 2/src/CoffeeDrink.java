@@ -6,8 +6,8 @@ public class CoffeeDrink extends DrinkItem {
 		super ( );
 	}
 	
-	public CoffeeDrink ( String sw, String sz, String b, int q ) {
-		super ( "Coffee", sw, sz );
+	public CoffeeDrink ( String sw, String sz, String b ) {
+		super ( "Coffee", sw, sz ); 
 		base = b;
 	}
 	
@@ -24,21 +24,5 @@ public class CoffeeDrink extends DrinkItem {
 		} else {
 			return 4.00;
 		} 
-	}
-
-	public boolean equals ( Object o ) {
-		if ( o instanceof CoffeeDrink ) {
-			CoffeeDrink b = ( CoffeeDrink ) o;
-			if ( this.getSweetness ( ) == b.getSweetness ( ) ) {
-				if ( this.getSize ( ) == b.getSize ( ) ) {
-					if ( this.getName ( ) == b.getName ( ) ) {
-						if ( this.base == b.base ) {
-							return true;
-						}
-					}
-				}
-			}
-		}
-		return false;
 	}
 }
