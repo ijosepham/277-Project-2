@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 public class CashRegister extends ArrayList < Object > {
+	private double balance;
 	
 	public CashRegister ( ) {
 		super ( );
@@ -32,45 +33,68 @@ public class CashRegister extends ArrayList < Object > {
 		return order;
 	}
 	
-	public double calculateBalance ( ) {
+	public double calculateTax ( double subtotal ) {
+		double tax = subtotal * .1025;
+		return tax;
+	}
+	
+	public double calculateSubtotal ( ) {
 		int orderSize = orderSize ( );
-		double balance = 0;
+		double subtotal = 0;
 		Object o = null;
 		
 		for ( int i = 0; i < orderSize; i ++ ) {
 			o = getOrder ( i );
 			if ( o instanceof DrinkItem ) {
 				DrinkItem d = ( DrinkItem ) o;
-				balance += d.getCost ( );
+				subtotal += d.getCost ( );
 			} else if ( o instanceof DessertItem ) {
 				DessertItem d = ( DessertItem ) o;
-				balance += d.getCost ( );
+				subtotal += d.getCost ( );
 			}
 		}
-		
-		balance *= 1.1025;
+		return subtotal;
+	}
+	
+	public double calculateBalance ( double subtotal ) {
+		balance = subtotal * 1.1025;
+		return balance;
+	}
+	
+	public double getBalance  ( ) {
 		return balance;
 	}
 	
 	public void printReceipt ( ) {
 		int orderSize = orderSize ( );
 		Object order = null;
-		double price = 0;
+		int drinksAm = 0;
+		int dessertsAm = 0;
+		double drinksPr = 0;
+		double dessertsPr = 0;
 		System.out.println ( "\n" + "Order Receipt" );
 		for ( int i = 0; i < orderSize; i ++ ) {
-			
 			order = getOrder ( i );
 			if ( order instanceof DrinkItem ) {
-				DrinkItem d = ( DrinkItem ) order;
-				price = d.getCost ( );
+				drinksAm ++;
+				drinksPr +=  ( ( DrinkItem ) order ).getCost ( );
 			} else if ( order instanceof DessertItem ) {
-				DessertItem d = ( DessertItem ) order;
-				price = d.getCost ( );
+				dessertsAm += ( ( DessertItem ) order ).getQuantity ( );
+				dessertsPr +=  ( ( DessertItem ) order ).getCost ( );
 			}
-			
-			System.out.printf ( order + "   $" + "%.2f" + "\n", price );
 		}
-		System.out.printf ( "\n" + "Balance: $" + "%.2f" + "\n" + "\n", calculateBalance ( ) );
+		if ( drinksAm > 0 ) {
+			System.out.printf ( drinksAm + " x Drink Item - $" + "%.2f" + "\n", drinksPr );
+		}
+		if ( dessertsAm > 0 ) {
+			System.out.printf ( dessertsAm + " x Dessert Item - $" + "%.2f", dessertsPr );
+		}
+		double subtotal = calculateSubtotal ( );
+		double tax = calculateTax ( subtotal );
+		balance = calculateBalance ( subtotal );
+		System.out.printf ( "\n" + "\n" + "Subtotal: $" + "%.2f", subtotal );
+		System.out.printf ( "\n" + "Tax:      $" + "%.2f", tax );
+		System.out.printf ( "\n" + "Balance:  $" + "%.2f" + "\n" + "\n", balance );
 	}
 	
 	public void clearRegister ( ) {
