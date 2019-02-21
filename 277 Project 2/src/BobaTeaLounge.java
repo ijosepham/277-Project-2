@@ -2,54 +2,75 @@ import java.util.ArrayList;
 
 public class BobaTeaLounge {
 	public static void main ( String [ ] args ) {
-		int menuChoice = getMain ( );
-		Object order = null;
+		ArrayList < String > sales = new ArrayList < String > ( );
 		CashRegister cashRegister  = new CashRegister ( );
+		double grandTotal = 0;
+		Object order = null;
+		int menuChoice = 0;
+		boolean done = false;
 		
-		while ( menuChoice != 3 ) {
-			if ( menuChoice == 1 ) { // drink
-				menuChoice = getDrink ( );
-				if ( menuChoice == 1 ) { // tea
-					order = orderTea ( );
-				} else if ( menuChoice == 2 ) { // coffee
-					order = orderCoffee ( );
-				}
-			} else { // dessert
-				menuChoice = getDessert ( );
-				if ( menuChoice == 1 ) { // pastry
-					order = orderPastry ( );
-				} else if ( menuChoice == 2 ) { // cookie
-					order = orderCookie ( );
-				} else { // mac
-					order = orderMacaron ( );
-				}
-			}
-			if ( confirmOrder ( order ) ) {
-				cashRegister.addOrder ( order );
-			}
-			cashRegister.printReceipt ( );
+		while ( !done ) { // while day hasn't finished
+			System.out.println ( "Welcome to Boba Tea Lounge! What may I get you?" + "\n" );
 			menuChoice = getMain ( );
+			while ( menuChoice != 3 ) {
+				if ( menuChoice == 1 ) { // drink
+					menuChoice = getDrink ( );
+					if ( menuChoice == 1 ) { // tea
+						order = orderTea ( );
+					} else if ( menuChoice == 2 ) { // coffee
+						order = orderCoffee ( );
+					}
+				} else { // dessert
+					menuChoice = getDessert ( );
+					if ( menuChoice == 1 ) { // pastry
+						order = orderPastry ( );
+					} else if ( menuChoice == 2 ) { // cookie
+						order = orderCookie ( );
+					} else { // mac
+						order = orderMacaron ( );
+					}
+				}
+				if ( confirmOrder ( order ) ) { // if user confirms that it's a correct order
+					cashRegister.addOrder ( order );
+				}
+				System.out.println ( "Would you like anything else?" + "\n" );
+				menuChoice = getMain ( ); // then asks if they want another item or to finsih up the sale
+			}
+			
+			sales.add ( cashRegister.getSale ( ) ); // add sale to arraylist so at the end of day, prints out all sales
+			grandTotal += cashRegister.getBalance ( );
+			
+			cashRegister.printReceipt ( ); // prints out the receipt of the just finished sale
+			transaction ( cashRegister ); // asks user to cough up and gives change
+			cashRegister.clearRegister ( ); // clears register to start a new sale with a new customer
+			System.out.println ( "Thank you for coming to Boba Tea Lounge. Please come again!" );
+			
+			System.out.println ( "\n" + "Is the day over? (Y/N) " );
+			done = GetInput.getYesOrNo ( );
+			System.out.println ( "" );
 		}
-		cashRegister.printReceipt ( );
-		transaction ( cashRegister );
-		System.out.println ( "Thank you for coming to Boba Tea Lounge. Come again!" );
+		printSales ( sales, grandTotal ); // print sales once the day is over
 	}
 	
 	public static void transaction ( CashRegister c ) {
-		double balance = c.getBalance (  );
+		double balance = ( ( ( int ) ( c.getBalance ( ) * 100 ) ) / 100.0 ); // this will round to two decimal palces
 		double payment = getPayment ( balance );
-		double change = getChange ( balance, payment );
-		System.out.printf ( "\n" + "Change: $" + "%.2f" + "\n", change );
+		double change = payment - balance;
+		System.out.printf ( "\n" + "Change: $" + "%.2f" + "\n" + "\n", change );
 	}
 	
 	public static double getPayment ( double balance ) {
-		System.out.println ( "How much will you pay with? " );
+		System.out.println ( "Payment Amount" );
 		double paid = GetInput.getDoubleRangeL ( balance );
 		return paid;
 	}
 	
-	public static double getChange ( double balance, double payment ) {
-		return payment - balance;
+	public static void printSales ( ArrayList < String > sales, double grandTotal ) {
+		for ( int i = 0; i < sales.size ( ); i ++ ) {
+			System.out.println ( "Sale #" + ( i + 1 ) );
+			System.out.println ( sales.get ( i ) + "\n" ); 
+		}
+		System.out.printf ( "Grand Total: $" + "%.2f", grandTotal );
 	}
 	
 	public static BobaDrink orderTea ( ) {
@@ -74,7 +95,7 @@ public class BobaTeaLounge {
 	public static Pastry orderPastry ( ) {
 		String pastry = getPastry ( );
 		String temperature = getPastryTemperature ( );
-		int quantity = getQuantity ( );
+		int quantity = getPastryQuantity ( );
 		Pastry order = new Pastry ( pastry, quantity, temperature );
 		return order;
 	}
@@ -88,20 +109,27 @@ public class BobaTeaLounge {
 	
 	public static Macaron orderMacaron ( ) {
 		String macaron = getMacaron ( );
-		int quantity = getQuantity ( );
+		int quantity = getMacaronQuantity ( );
 		Macaron order = new Macaron ( macaron, quantity );
 		return order;
 	}
 	
-	public static int getQuantity ( ) {
-		System.out.println ( "\n" + "Amount" );
-		System.out.println ( "How many would you like?" );
+	public static int getMacaronQuantity ( ) {
+		System.out.println ( "\n" + "1 Macaron @ $1.00" );
+		System.out.println ( "3 Macarons @ $2.50" );
+		System.out.println ( "Macaron Amount" );
+		return GetInput.getIntRangeL ( 1 );
+	}
+	
+	public static int getPastryQuantity ( ) {
+		System.out.println ( "\n" + "1 Pastry @ $1.00" );
+		System.out.println ( "Pastry Amount" );
 		return GetInput.getIntRangeL ( 1 );
 	}
 	
 	public static int getCookieQuantity ( ) {
-		System.out.println ( "Amount" );
-		System.out.println ( "How many dozens would you like? " );
+		System.out.println ( "1 Dozen Cookies @ $10.00." );
+		System.out.println ( "Dozen Cookies Amount" );
 		int dozens = GetInput.getIntRangeL ( 1 );
 		return dozens;
 	}
@@ -109,7 +137,9 @@ public class BobaTeaLounge {
 	public static boolean confirmOrder ( Object o ) {
 		printOrder ( o );
 		System.out.print ( "Confirm Order (Y/N): " );
-		return GetInput.getYesOrNo ( );
+		boolean confirmed = GetInput.getYesOrNo ( );
+		System.out.println ( "" );
+		return confirmed;
 	}
 	
 	public static void printOrder ( Object o ) {
@@ -253,8 +283,7 @@ public class BobaTeaLounge {
 	}
 	
 	public static int getCoffeeSweetness ( ) {
-		System.out.println ( "\n" + "Sweetness" );
-		System.out.println ( "How many teaspoons of sugar would you like?" );
+		System.out.println ( "\n" + "Teaspoons of Sugar" );
 		int sw = GetInput.getIntRangeL ( 0 );
 		return sw;
 	}
