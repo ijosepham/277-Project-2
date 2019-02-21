@@ -11,8 +11,19 @@ public class CoffeeDrink extends DrinkItem {
 		base = b;
 	}
 	
+	public void setBase ( String b ) {
+		base = b;
+	}
+	
+	public String getBase ( ) {
+		return base;
+	}
+	
 	public String toString ( ) {
-		return super.getSize ( ) + " " + base + "-Based Coffee with " + super.getSweetness ( ) + " of Sugar";
+		 String s = super.getSize ( ) + " " + super.getName ( ) + "\n";
+		 s += " -" + super.getSweetness ( ) + "\n";
+		 s += " -" + base + " Based" + "\n";
+		 return s;
 	}
 	
 	@Override
@@ -24,5 +35,11 @@ public class CoffeeDrink extends DrinkItem {
 		} else {
 			return 4.00;
 		} 
+	}
+
+	@Override
+	public int compareTo(DrinkItem o) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }
