@@ -1,6 +1,35 @@
 import java.util.Scanner;
 
 public class GetInput {
+	public static double getDouble ( ) {
+		Scanner in = new Scanner ( System.in );
+		while ( ! in.hasNextDouble ( ) ) {
+			in.next ( );
+			System.out.print ( "Enter a valid number: " );
+		}
+		return in.nextDouble ( );
+	}
+	
+	public static double getDoubleRangeL ( double low ) {
+		Scanner in = new Scanner ( System.in );
+		double input = 0;
+		boolean valid = false;
+		while ( ! valid ) {
+			if ( in.hasNextDouble ( ) ) {
+				input = in.nextDouble ( );
+				if ( input >= low ) {
+					return input;
+				} else {
+					System.out.print ( "Enter a valid number: " );
+				}
+			} else {
+				in.next ( );
+				System.out.print ( "Enter a valid number: " );
+			}
+		}
+		return input;
+	}
+	
 	public static int getInt ( ) {
 		Scanner in = new Scanner ( System.in );
 		while ( ! in.hasNextInt ( ) ) {
@@ -40,7 +69,7 @@ public class GetInput {
 				if ( input <= high ) {
 					return input;
 				} else {
-					System.out.print ( "Enter a valid choice: " );
+					System.out.print ( "Enter a valid number: " );
 				}
 			} else {
 				in.next ( );
@@ -59,7 +88,7 @@ public class GetInput {
 				if ( input >= low && input <= high ) {
 					return input;
 				} else {
-					System.out.print ( "Enter a valid choice: " );
+					System.out.print ( "Enter a valid number: " );
 				}
 			} else {
 				in.next ( );
