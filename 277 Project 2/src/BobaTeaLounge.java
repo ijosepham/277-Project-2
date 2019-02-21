@@ -31,7 +31,25 @@ public class BobaTeaLounge {
 			menuChoice = getMain ( );
 		}
 		cashRegister.printReceipt ( );
+		transaction ( cashRegister );
 		System.out.println ( "Thank you for coming to Boba Tea Lounge. Come again!" );
+	}
+	
+	public static void transaction ( CashRegister c ) {
+		double balance = c.getBalance (  );
+		double payment = getPayment ( balance );
+		double change = getChange ( balance, payment );
+		System.out.printf ( "\n" + "Change: $" + "%.2f" + "\n", change );
+	}
+	
+	public static double getPayment ( double balance ) {
+		System.out.println ( "How much will you pay with? " );
+		double paid = GetInput.getDoubleRangeL ( balance );
+		return paid;
+	}
+	
+	public static double getChange ( double balance, double payment ) {
+		return payment - balance;
 	}
 	
 	public static BobaDrink orderTea ( ) {
@@ -76,13 +94,16 @@ public class BobaTeaLounge {
 	}
 	
 	public static int getQuantity ( ) {
-		System.out.print ( "\n" + "How many would you like? " );
+		System.out.println ( "\n" + "Amount" );
+		System.out.println ( "How many would you like?" );
 		return GetInput.getIntRangeL ( 1 );
 	}
 	
 	public static int getCookieQuantity ( ) {
-		System.out.print ( "\n" + "How many dozens would you like? " );
-		return GetInput.getIntRangeL ( 1 );
+		System.out.println ( "Amount" );
+		System.out.println ( "How many dozens would you like? " );
+		int dozens = GetInput.getIntRangeL ( 1 );
+		return dozens;
 	}
 	
 	public static boolean confirmOrder ( Object o ) {
@@ -201,17 +222,29 @@ public class BobaTeaLounge {
 		int input = GetInput.getIntRange ( 1, 7 );
 		while ( input != 7 ) {
 			if ( input == 1 ) { 
-				toppings.add ( "Honey Boba" );
+				if ( ! toppings.contains( "Honey Boba" ) ) {
+					toppings.add ( "Honey Boba" );
+				}
 			} else if ( input == 2 ) {
-				toppings.add ( "Popping Boba" );
+				if ( ! toppings.contains( "Popping Boba" ) ) {
+					toppings.add ( "Popping Boba" );
+				}
 			} else if ( input == 3 ) {
-				toppings.add ( "Grass Jelly" );
+				if ( ! toppings.contains( "Grass Jelly" ) ) {
+					toppings.add ( "Grass Jelly" );
+				}
 			} else if ( input == 4 ) {
-				toppings.add ( "Lychee Jelly" );
+				if ( ! toppings.contains( "Lychee Jelly" ) ) {
+					toppings.add ( "Lychee Jelly" );
+				}
 			} else if ( input == 5 ) {
-				toppings.add ( "Coconut Jelly" );
+				if ( ! toppings.contains( "Coconut Jelly" ) ) {
+					toppings.add ( "Coconut Jelly" );
+				}
 			} else if ( input == 6 ){
-				toppings.add ( "Mini Mochi" );
+				if ( ! toppings.contains( "Mini Mochi" ) ) {
+					toppings.add ( "Mini Mochi" );
+				}
 			}
 			printTeaToppings ( );
 			input = GetInput.getIntRange ( 1, 7 ) ;
@@ -220,7 +253,8 @@ public class BobaTeaLounge {
 	}
 	
 	public static int getCoffeeSweetness ( ) {
-		System.out.println ( "\n" + "How many teaspoons of sugar would you like? " );
+		System.out.println ( "\n" + "Sweetness" );
+		System.out.println ( "How many teaspoons of sugar would you like?" );
 		int sw = GetInput.getIntRangeL ( 0 );
 		return sw;
 	}
