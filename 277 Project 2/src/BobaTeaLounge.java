@@ -1,13 +1,7 @@
-/**
- * allows customers to mix and match desserts
- * e.g. 3 cc cookies, 1 sugar, 1 oatmeal
- * e.g. 1 hot croiss, 1 cold dough, 3 warm muffin
- */
+import java.util.ArrayList;
 
 public class BobaTeaLounge {
 	public static void main ( String [ ] args ) {
-		String s = "Grass Jelly";
-		System.out.println(s.contains("Boba"));
 		int menuChoice = getMain ( );
 		Object order = null;
 		CashRegister cashRegister  = new CashRegister ( );
@@ -44,10 +38,9 @@ public class BobaTeaLounge {
 		String tea = getTeaBase ( );
 		String sweetness = getTeaSweetness ( );
 		String milk = getTeaMilk ( );
-		String topping = getTeaTopping ( );
+		ArrayList < String > toppings = getTeaTopping ( );
 		String size = getSize ( );
-		int quantity = getQuantity ( );
-		BobaDrink order = new BobaDrink ( tea, sweetness, milk, topping, size, quantity );
+		BobaDrink order = new BobaDrink ( tea, sweetness, milk, toppings, size );
 		return order;
 	}
 	
@@ -56,8 +49,7 @@ public class BobaTeaLounge {
 		String sweetness = teaspoons + " Teaspoon";
 		String milk = getCoffeeMilk ( );
 		String size = getSize ( );
-		int quantity = getQuantity ( );
-		CoffeeDrink order = new CoffeeDrink ( sweetness, size, milk, quantity );
+		CoffeeDrink order = new CoffeeDrink ( sweetness, size, milk );
 		return order;
 	}
 	
@@ -192,37 +184,44 @@ public class BobaTeaLounge {
 		}
 	}
 	
-	public static String getTeaTopping ( ) {
+	public static void printTeaToppings ( ) {
 		System.out.println ( "\n" + "Tea Toppings" );
-		System.out.println ( "1. Boba" );
+		System.out.println ( "1. Honey Boba" );
 		System.out.println ( "2. Popping Boba" );
 		System.out.println ( "3. Grass Jelly" );
 		System.out.println ( "4. Lychee Jelly" );
 		System.out.println ( "5. Coconut Jelly" );
 		System.out.println ( "6. Mini Mochi" );
-		System.out.println ( "7. None" );
+		System.out.println ( "7. Done" );
+	}
+	
+	public static ArrayList < String > getTeaTopping ( ) {
+		ArrayList < String > toppings = new ArrayList < String > ( );
+		printTeaToppings ( );
 		int input = GetInput.getIntRange ( 1, 7 );
-		if ( input == 1 ) { 
-			return "Boba";
-		} else if ( input == 2 ) {
-			return "Popping Boba";
-		} else if ( input == 3 ) {
-			return "Grass Jelly";
-		} else if ( input == 4 ) {
-			return "Lychee Jelly";
-		} else if ( input == 5 ) {
-			return "Coconut Jelly";
-		} else if ( input == 6 ){
-			return "Mini Mochi";
-		} else {
-			return "None";
+		while ( input != 7 ) {
+			if ( input == 1 ) { 
+				toppings.add ( "Honey Boba" );
+			} else if ( input == 2 ) {
+				toppings.add ( "Popping Boba" );
+			} else if ( input == 3 ) {
+				toppings.add ( "Grass Jelly" );
+			} else if ( input == 4 ) {
+				toppings.add ( "Lychee Jelly" );
+			} else if ( input == 5 ) {
+				toppings.add ( "Coconut Jelly" );
+			} else if ( input == 6 ){
+				toppings.add ( "Mini Mochi" );
+			}
+			printTeaToppings ( );
+			input = GetInput.getIntRange ( 1, 7 ) ;
 		}
+		return toppings;
 	}
 	
 	public static int getCoffeeSweetness ( ) {
-		System.out.print ( "\n" + "How many teaspoons of sugar would you like? " );
+		System.out.println ( "\n" + "How many teaspoons of sugar would you like? " );
 		int sw = GetInput.getIntRangeL ( 0 );
-		System.out.println ( "" );
 		return sw;
 	}
 	
