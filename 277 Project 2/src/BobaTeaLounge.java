@@ -4,6 +4,7 @@ import java.util.ArrayList;
  * @date 21 feb 19
  * @desc user takes orders of customers' drinks and desserts they'd like to buy. 
  */
+
 public class BobaTeaLounge {
 	public static void main ( String [ ] args ) {
 		ArrayList < String > sales = new ArrayList < String > ( ); // contains all the receipts from al lsales
