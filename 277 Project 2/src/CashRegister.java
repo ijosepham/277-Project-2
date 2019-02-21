@@ -1,7 +1,13 @@
 import java.util.ArrayList;
 
 public class CashRegister extends ArrayList < Object > {
-	private double balance;
+	private double subtotal = 0;
+	private double tax = 0;
+	private double balance = 0;
+	private int drinkAm = 0;
+	private double drinkPr = 0;
+	private int dessertAm = 0;
+	private double dessertPr = 0;
 	
 	public CashRegister ( ) {
 		super ( );
@@ -13,6 +19,19 @@ public class CashRegister extends ArrayList < Object > {
 	
 	public Object addOrder ( Object order ) {
 		super.add ( order );
+		if ( order instanceof DrinkItem ) {
+			DrinkItem d = ( DrinkItem ) order;
+			drinkAm ++;
+			drinkPr += d.getCost ( );
+			subtotal += d.getCost ( );
+		} else if ( order instanceof DessertItem ) {
+			DessertItem d = ( DessertItem ) order;
+			dessertAm += d.getQuantity ( );	
+			dessertPr += d.getCost ( );
+			subtotal += d.getCost ( );
+		}
+		tax = subtotal * .1025;
+		balance = subtotal + tax;
 		return order;
 	}
 	
@@ -20,45 +39,12 @@ public class CashRegister extends ArrayList < Object > {
 		return super.get ( index );
 	}
 	
-	public Object removeOrder ( ) {
-		return super.remove ( 0 );
-	}
-	
-	public Object removeOrder ( int index ) {
-		return super.remove ( index );
-	}
-	
-	public Object removeOrder ( Object order ) {
-		super.remove ( order );
-		return order;
-	}
-	
-	public double calculateTax ( double subtotal ) {
-		double tax = subtotal * .1025;
-		return tax;
-	}
-	
-	public double calculateSubtotal ( ) {
-		int orderSize = orderSize ( );
-		double subtotal = 0;
-		Object o = null;
-		
-		for ( int i = 0; i < orderSize; i ++ ) {
-			o = getOrder ( i );
-			if ( o instanceof DrinkItem ) {
-				DrinkItem d = ( DrinkItem ) o;
-				subtotal += d.getCost ( );
-			} else if ( o instanceof DessertItem ) {
-				DessertItem d = ( DessertItem ) o;
-				subtotal += d.getCost ( );
-			}
-		}
+	public double getSubtotal ( ) {
 		return subtotal;
 	}
 	
-	public double calculateBalance ( double subtotal ) {
-		balance = subtotal * 1.1025;
-		return balance;
+	public double getTax ( ) {
+		return tax;
 	}
 	
 	public double getBalance  ( ) {
@@ -66,41 +52,41 @@ public class CashRegister extends ArrayList < Object > {
 	}
 	
 	public void printReceipt ( ) {
-		int orderSize = orderSize ( );
-		Object order = null;
-		int drinksAm = 0;
-		int dessertsAm = 0;
-		double drinksPr = 0;
-		double dessertsPr = 0;
 		System.out.println ( "\n" + "Order Receipt" );
-		for ( int i = 0; i < orderSize; i ++ ) {
-			order = getOrder ( i );
-			if ( order instanceof DrinkItem ) {
-				drinksAm ++;
-				drinksPr +=  ( ( DrinkItem ) order ).getCost ( );
-			} else if ( order instanceof DessertItem ) {
-				dessertsAm += ( ( DessertItem ) order ).getQuantity ( );
-				dessertsPr +=  ( ( DessertItem ) order ).getCost ( );
-			}
+		if ( drinkAm > 0 ) {
+			System.out.printf ( drinkAm + " x Drink Item - $" + "%.2f" + "\n", drinkPr );
 		}
-		if ( drinksAm > 0 ) {
-			System.out.printf ( drinksAm + " x Drink Item - $" + "%.2f" + "\n", drinksPr );
+		if ( dessertAm > 0 ) {
+			System.out.printf ( dessertAm + " x Dessert Item - $" + "%.2f" + "\n", dessertPr );
 		}
-		if ( dessertsAm > 0 ) {
-			System.out.printf ( dessertsAm + " x Dessert Item - $" + "%.2f", dessertsPr );
-		}
-		double subtotal = calculateSubtotal ( );
-		double tax = calculateTax ( subtotal );
-		balance = calculateBalance ( subtotal );
-		System.out.printf ( "\n" + "\n" + "Subtotal: $" + "%.2f", subtotal );
+		System.out.printf ( "\n" + "Subtotal: $" + "%.2f", subtotal );
 		System.out.printf ( "\n" + "Tax:      $" + "%.2f", tax );
 		System.out.printf ( "\n" + "Balance:  $" + "%.2f" + "\n" + "\n", balance );
+	}
+	
+	public String getSale ( ) {
+		String s = "";
+		if ( drinkAm > 0 ) {
+			s += String.format ( drinkAm + " x Drink Item - $" + "%.2f" + "\n", drinkPr );
+		}
+		if ( dessertAm > 0 ) {
+			 s += String.format ( dessertAm + " x Dessert Item - $" + "%.2f" + "\n", dessertPr );
+		}
+		s += String.format ( "Total:  $" + "%.2f", balance );
+		return s;
 	}
 	
 	public void clearRegister ( ) {
 		int orderSize = orderSize ( );
 		for ( int i = 0; i < orderSize; i ++ ) {
-			removeOrder ( );
+			super.remove ( 0 );
 		}
+		subtotal = 0;
+		tax = 0;
+		balance = 0;
+		drinkAm = 0;
+		drinkPr = 0;
+		dessertAm = 0;
+		dessertPr = 0;
 	}
 }
