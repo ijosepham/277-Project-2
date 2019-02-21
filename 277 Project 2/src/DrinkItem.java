@@ -1,5 +1,5 @@
 
-public abstract class DrinkItem {
+public abstract class DrinkItem implements Comparable < DrinkItem > {
 	private String name;
 	private String sweetness;
 	private String size;
