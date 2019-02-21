@@ -12,7 +12,7 @@ public class CoffeeDrink extends DrinkItem {
 	}
 	
 	public String toString ( ) {
-		return super.getSize ( ) + " " + base + " based Coffee with " + super.getSweetness ( ) + " of Sugar";
+		return super.getSize ( ) + " " + base + "-Based Coffee with " + super.getSweetness ( ) + " of Sugar";
 	}
 	
 	@Override
