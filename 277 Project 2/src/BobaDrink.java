@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class BobaDrink extends DrinkItem {
 	private ArrayList < String > toppings;
-	private String milk;
+	private String milk; // 
 	
 	public BobaDrink ( ) {
 		super ( );
