@@ -6,6 +6,17 @@
 
 public class BobaTeaLounge {
 	public static void main ( String [ ] args ) {
+		BobaDrink b1 = new BobaDrink ( );
+		if ( b1 instanceof MenuItem ) {
+			MenuItem b2 = ( MenuItem ) b1;
+			if ( b2 instanceof CoffeeDrink ) {
+				System.out.println("coffee");
+			} else if ( b2 instanceof BobaDrink ) {
+				System.out.println("boba");
+			}
+		} else {
+			System.out.println("Nay");
+		}
 		int menuChoice = getMain ( );
 		MenuItem order = null;
 		CashRegister cashRegister  = new CashRegister ( );

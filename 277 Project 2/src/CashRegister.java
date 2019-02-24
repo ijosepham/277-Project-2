@@ -53,6 +53,30 @@ public class CashRegister extends ArrayList < MenuItem > {
 		
 		return balance;
 	}
+	/**
+	 * first iterate through to look for drinks/desserts in general
+	 * if one doesnt exist, just skip it.
+	 * if desserts exist, loop through to check for instances of 
+	 * 		pastries, cookies, macarons. then check the quantity of that instance
+	 * keep track of each instance
+	 * then print out the amount of instances with the prices, seaprating into 
+	 */
+	public void printReceiptt ( ) {
+		MenuItem order = null;
+		for ( int i = 0; i < orderSize ( ); i ++ ) {
+			order = getOrder ( i );
+			quantity = order.getQuantity ( );
+			if ( order instanceof DessertItem ) {
+				if ( order instanceof Pastry ) {
+					pQuantity += quantity;
+				} else if ( order instanceof Cookie ) {
+					cQuantity += quantity;
+				} else if ( order instanceof Macaron ) {
+					mQuantity += quantity;
+				}
+			}
+		}
+	}
 	
 	public void printReceipt ( ) {
 		int orderSize = orderSize ( );
