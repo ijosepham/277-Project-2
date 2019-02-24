@@ -13,13 +13,6 @@ public class Pastry extends DessertItem {
 		temperature = "Warm";
 	}
 	
-	public Pastry ( String p, int q ) {
-		super ( p );
-		quantity = q;
-		singles = quantity % 5;
-		fives = quantity / 5;
-	}
-	
 	public Pastry ( String p, int q, String t ) {
 		super ( p );
 		quantity = q;
