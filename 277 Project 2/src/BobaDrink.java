@@ -85,8 +85,12 @@ public class BobaDrink extends DrinkItem {
 		 return s;
 	}
 	
+	/**
+	 * @desc calculates and returns the cost of the drink
+	 * @return double - cost of the drink
+	 */
 	@Override
-	public double getCost() {
+	public double getCost ( ) {
 		double cost = 0;
 		cost += toppings.size ( ) * 0.50;
 		if ( super.getSize( ) == "Small" ) {
