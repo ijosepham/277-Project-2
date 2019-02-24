@@ -44,5 +44,12 @@ public abstract class DrinkItem extends MenuItem {
 		return size + " " + name +  ", " + sweetness;
 	}
 	
+<<<<<<< HEAD
+=======
+	/**
+	 * @desc calcualtes and returnst e cost of the order
+	 * @return double - cost of the order
+	 */
+>>>>>>> parent of a3eeea0... updated the max() fucntion so it returns the order isntead of an int
 	public abstract double getCost ( );
 }
