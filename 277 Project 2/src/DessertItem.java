@@ -1,46 +1,72 @@
 
-public abstract class DessertItem extends MenuItem {
+public abstract class DessertItem implements Comparable <DessertItem > {
+	/**
+	 * name of the desert item
+	 */
 	private String name;
 	
+	/**
+	 * default constructor
+	 */
 	public DessertItem ( ) {
 		name = "";
 	}
 	
+	/**
+	 * overlaoded constructor
+	 * @param n - name of the dessert
+	 */
 	public DessertItem ( String n ) {
 		name = n;
 	}
 	
+	/**
+	 * @desc sets the name of the dessert
+	 * @param n - name
+	 */
 	public void setName ( String n ) {
 		name = n;
 	}
 	
+	/**
+	 * @desc gets and returns the name of the dessert
+	 * @return string - name of dessert
+	 */
 	public String getName ( ) {
 		return name;
 	}
 	
+	/**
+	 * @desc returns the name of the dessert
+	 */
 	public String toString ( ) {
 		return name;
 	}
 	
-<<<<<<< HEAD
-=======
 	/**
 	 * @desc returns the difference between the cost of two dessert items
 	 * @param d1 - first dessert
 	 * @param d2 - second dessert
-	 * @return double - difference of two dessert prices
-	 * 					returns positive, if the first one costs more
-	 * 					returns negative, if the second one costs more
+	 * @return DessertItem - returns the one that costs more, or the first one if theyr e the same
 	 */
-	public static double max ( DessertItem d1, DessertItem d2 ) {
+	public static DessertItem max ( DessertItem d1, DessertItem d2 ) {
 		double difference = d1.getCost ( ) - d2.getCost ( );
-		return difference;
+		if ( difference >= 0 ) {
+			return d1;
+		} else { 
+			return d2;
+		}
 	}
 	
 	/**
 	 * @desc get cost of the dessert
 	 * @return double - cost of the 
 	 */
->>>>>>> parent of a3eeea0... updated the max() fucntion so it returns the order isntead of an int
 	public abstract double getCost ( );
+	
+	/**
+	 * @desc get quantity of the dessert
+	 * @return int - amount of desserts
+	 */
+	public abstract int getQuantity ( );
 }

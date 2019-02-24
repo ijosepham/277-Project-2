@@ -1,67 +1,70 @@
 
 public class Cookie extends DessertItem {
-	private int quantity;
-	private int singles;
+	/**
+	 * quantity in dozens
+	 */
 	private int dozens;
-	private double singlesPrice = 1.00;
-	private double dozensPrice = 10.00;
 	
+	/**
+	 * price per dozen
+	 */
+	private double pricePerDozen = 10.00;
+	
+	/**
+	 * default constructor
+	 */
 	public Cookie ( ) {
 		super ( "Cookie" );
-		quantity = 1;
-		singles = 1;
-		dozens = 0;
+		dozens = 1;
 	}
 	
-	public Cookie ( String c, int q ) {
+	/**
+	 * overlaoded constructor
+	 * @param c - type of cookie
+	 * @param d - amount of dozens
+	 */
+	public Cookie ( String c, int d ) {
 		super ( c );
-		quantity = q;
-		singles = quantity % 12;
-		dozens = quantity / 12;
+		dozens = d;
 	}
 	
+	/**
+	 * @desc gets teh quantity of dozens
+	 * @return int - quantity of dozens
+	 */
 	public int getQuantity ( ) {
-		return quantity;
+		return dozens;
 	}
 	
-	public void setQuantity ( int q ) {
-		quantity = q;
-		singles = quantity % 12;
-		dozens = quantity / 12;
+	/**
+	 * @desc sets the quantity of dozens
+	 * @param d - quantity to set to
+	 */
+	public void setQuantity ( int d ) {
+		dozens = d;
 	}
 	
+	/**
+	 * @desc returns the amount of dozens of cookies ordered
+	 * @return string - order of cookies
+	 */
 	public String toString ( ) {
-		String s = "";
-		if ( dozens > 0 ) {
-			s += dozens + " x Dozen " + " " + super.getName ( ) + "s";
-		}
-		if ( singles > 0 ) {
-			s += singles + " x " + " " + super.getName ( );
-		}
+		String s = dozens + " x Dozen of " + super.getName ( ) + "s" + "\n";
 		return s;
 	}
 	
+	/**
+	 * @desc calculates cost and returns it
+	 * @return double - cost
+	 */
 	@Override
-	public double getCost() {
-		return singles * singlesPrice + dozens * dozensPrice;
+	public double getCost ( ) {
+		return dozens * pricePerDozen;
 	}
-	
+
 	@Override
-	public void combineOrders ( int q ) {
-		quantity += q;
-		singles = quantity % 12;
-		dozens = quantity / 12;
-		
-	}
-	
-	@Override
-	public boolean equals ( MenuItem m ) {
-		if ( m instanceof Cookie ) {
-			Cookie c = ( Cookie ) m;
-			if ( this.getName ( ) == c.getName ( ) ) {
-				return true;
-			}
-		}
-		return false;
+	public int compareTo(DessertItem arg0) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

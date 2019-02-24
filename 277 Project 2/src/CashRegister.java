@@ -1,76 +1,155 @@
 import java.util.ArrayList;
 
-public class CashRegister extends ArrayList < MenuItem > {
+public class CashRegister extends ArrayList < Object > {
+	/**
+	 * subtotal of the sale 
+	 */
+	private double subtotal = 0;
 	
+	/**
+	 * tax of the sale
+	 */
+	private double tax = 0;
+	
+	/**
+	 * total balance oft he sale
+	 */
+	private double balance = 0;
+	
+	/**
+	 * amount of drinks in teh sale
+	 */
+	private int drinkAm = 0;
+	
+	/**
+	 * total price of all the drinks in the sale
+	 */
+	private double drinkPr = 0;
+	
+	/**
+	 * total amouint of desserts
+	 */
+	private int dessertAm = 0;
+	
+	/**
+	 * total price of desserts
+	 */
+	private double dessertPr = 0;
+	
+	/**
+	 * default constructor
+	 */
 	public CashRegister ( ) {
 		super ( );
 	}
 	
+	/**
+	 * @desc gets and retusn the amount of orders in the sale
+	 * @return int - size of the sale
+	 */
 	public int orderSize ( ) {
 		return super.size ( );
 	}
 	
-	public MenuItem addOrder ( MenuItem order ) {
-		boolean added = false;
-		for ( int i = 0; i < orderSize ( ); i ++ ) {
-			if ( order.equals( getOrder ( i ) ) ) {
-				getOrder ( i ).combineOrders ( order.getQuantity ( ) );
-				added = true;
-			}
+	/**
+	 * @desc adds the order into the cash register, increases dessert/drink ammounts and prices
+	 * @param order - drink/dessert item
+	 */
+	public void addOrder ( Object order ) {
+		super.add ( order );
+		if ( order instanceof DrinkItem ) {
+			DrinkItem d = ( DrinkItem ) order;
+			drinkAm ++;
+			drinkPr += d.getCost ( );
+			subtotal += d.getCost ( );
+		} else if ( order instanceof DessertItem ) {
+			DessertItem d = ( DessertItem ) order;
+			dessertAm += d.getQuantity ( );	
+			dessertPr += d.getCost ( );
+			subtotal += d.getCost ( );
 		}
-		if ( ! added ) {
-			super.add ( order );
-		}
-		return order;
+		tax = subtotal * .1025;
+		balance = subtotal + tax;
 	}
 	
-	public MenuItem getOrder ( int index ) {
+	/**
+	 * @desc gets the order at the given index
+	 * @return order
+	 */
+	public Object getOrder ( int index ) {
 		return super.get ( index );
 	}
 	
-	public MenuItem removeOrder ( ) {
-		return super.remove ( 0 );
+	/**
+	 * @desc gets and returns the tax
+	 * @return double - tax
+	 */
+	public double getSubtotal ( ) {
+		return subtotal;
 	}
 	
-	public MenuItem removeOrder ( int index ) {
-		return super.remove ( index );
+	/**
+	 * @desc gets and returns the subtotal
+	 * @return double - subtotal
+	 */
+	public double getTax ( ) {
+		return tax;
 	}
 	
-	public MenuItem removeOrder ( MenuItem order ) {
-		super.remove ( order );
-		return order;
-	}
-	
-	public double calculateBalance ( ) {
-		int orderSize = orderSize ( );
-		double balance = 0;
-		
-		for ( int i = 0; i < orderSize; i ++ ) {
-			balance += getOrder ( i ).getCost ( );
-		}
-		
-		balance *= 1.1025;
-		
+	/**
+	 * @desc gets and returns the balance
+	 * @return double - balance
+	 */
+	public double getBalance  ( ) {
 		return balance;
 	}
 	
+	/**
+	 * @desc prints out all the orders for the sale
+	 */
 	public void printReceipt ( ) {
-		int orderSize = orderSize ( );
-		MenuItem order = null;
-		double price = 0;
 		System.out.println ( "\n" + "Order Receipt" );
-		for ( int i = 0; i < orderSize; i ++ ) {
-			order = getOrder ( i );
-			price = order.getCost ( );
-			System.out.printf ( order + "   $" + "%.2f" + "\n", price );
+		if ( drinkAm > 0 ) {
+			System.out.printf ( drinkAm + " x Drink Item - $" + "%.2f" + "\n", drinkPr );
 		}
-		System.out.printf ( "\n" + "Balance: $" + "%.2f" + "\n" + "\n", calculateBalance ( ) );
+		if ( dessertAm > 0 ) {
+			System.out.printf ( dessertAm + " x Dessert Item - $" + "%.2f" + "\n", dessertPr );
+		}
+		System.out.printf ( "\n" + "Subtotal: $" + "%.2f", subtotal );
+		System.out.printf ( "\n" + "Tax:      $" + "%.2f", tax );
+		System.out.printf ( "\n" + "Balance:  $" + "%.2f" + "\n" + "\n", balance );
 	}
 	
+	/**
+	 * @desc returns a short version of the sale
+	 * @return string - shortneed sale
+	 */
+	public String getSale ( ) {
+		String s = "";
+		if ( drinkAm > 0 ) {
+			s += String.format ( drinkAm + " x Drink Item - $" + "%.2f" + "\n", drinkPr );
+		}
+		if ( dessertAm > 0 ) {
+			 s += String.format ( dessertAm + " x Dessert Item - $" + "%.2f" + "\n", dessertPr );
+		}
+		s += String.format ( "Total:  $" + "%.2f", balance );
+		return s;
+	}
+	
+	/**
+	 * @desc clears all items from the register and resets the instances
+	 */
 	public void clearRegister ( ) {
 		int orderSize = orderSize ( );
 		for ( int i = 0; i < orderSize; i ++ ) {
-			removeOrder ( );
+			super.remove ( 0 );
 		}
+		subtotal = 0;
+		tax = 0;
+		balance = 0;
+		drinkAm = 0;
+		drinkPr = 0;
+		dessertAm = 0;
+		dessertPr = 0;
 	}
 }
