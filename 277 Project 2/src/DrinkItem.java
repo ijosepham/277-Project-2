@@ -93,7 +93,22 @@ public abstract class DrinkItem implements Comparable < DrinkItem > {
 	}
 	
 	/**
-	 * @desc calcualtes and returnst e cost of the order
+	 * @desc returns the difference between the cost of two dessert items
+	 * @param d1 - first dessert
+	 * @param d2 - second dessert
+	 * @return DrinkItem - returns the one that costs more, or the first one if theyr e the same
+	 */
+	public static DrinkItem max ( DrinkItem d1, DrinkItem d2 ) {
+		double difference = d1.getCost ( ) - d2.getCost ( );
+		if ( difference >= 0 ) {
+			return d1;
+		} else { 
+			return d2;
+		}
+	}
+	
+	/**
+	 * @desc calcualtes and returns the cost of the order
 	 * @return double - cost of the order
 	 */
 	public abstract double getCost ( );

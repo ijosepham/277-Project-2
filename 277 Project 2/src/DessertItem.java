@@ -47,13 +47,15 @@ public abstract class DessertItem implements Comparable <DessertItem > {
 	 * @desc returns the difference between the cost of two dessert items
 	 * @param d1 - first dessert
 	 * @param d2 - second dessert
-	 * @return double - difference of two dessert prices
-	 * 					returns positive, if the first one costs more
-	 * 					returns negative, if the second one costs more
+	 * @return DessertItem - returns the one that costs more, or the first one if theyr e the same
 	 */
-	public static double max ( DessertItem d1, DessertItem d2 ) {
+	public static DessertItem max ( DessertItem d1, DessertItem d2 ) {
 		double difference = d1.getCost ( ) - d2.getCost ( );
-		return difference;
+		if ( difference >= 0 ) {
+			return d1;
+		} else { 
+			return d2;
+		}
 	}
 	
 	/**
