@@ -12,12 +12,18 @@ public class BobaDrink extends DrinkItem {
 	private String milk;
 	
 	/**
+	 * represents the cost of the drink
+	 */
+	private double cost;
+	
+	/**
 	 * default constructor
 	 */
 	public BobaDrink ( ) {
 		super ( );
 		toppings = new ArrayList < String > ( );
 		milk = "";
+		cost = 3.50;
 	}
 	
 	/**
@@ -32,6 +38,7 @@ public class BobaDrink extends DrinkItem {
 		super ( n, sw, sz );
 		toppings = t;
 		milk = m;
+		cost = calculateCost ( );
 	}
 	
 	/**
@@ -40,6 +47,7 @@ public class BobaDrink extends DrinkItem {
 	 */
 	public void setToppings ( ArrayList < String > t ) {
 		toppings = t;
+		cost = calculateCost ( );
 	}
 	
 	/**
@@ -67,6 +75,31 @@ public class BobaDrink extends DrinkItem {
 	}
 	
 	/**
+	 * @desc calculates the cost of the boba drink
+	 * @return cost of the drink
+	 */
+	public double calculateCost ( ) {
+		double c = 0;
+		c += .5 * toppings.size ( );
+		if ( super.getSize( ) == "Small" ) {
+			c += 3.00;
+		} else if ( super.getSize( ) == "Medium" ) {
+			c += 3.50;
+		} else if ( super.getSize ( ) == "Large" ){
+			c += 4.00;
+		} 
+		return c;
+	}
+	
+	/**
+	 * @desc sets the cost of the order, used for coupons
+	 * @param c cost to apply to
+	 */
+	public void setCost ( double c ) {
+		cost = c;
+	}
+	
+	/**
 	 * @desc displays the drink and its attributes
 	 * @return string - order of bobadrink
 	 */
@@ -91,15 +124,6 @@ public class BobaDrink extends DrinkItem {
 	 */
 	@Override
 	public double getCost ( ) {
-		double cost = 0;
-		cost += toppings.size ( ) * 0.50;
-		if ( super.getSize( ) == "Small" ) {
-			cost += 3.00;
-		} else if ( super.getSize( ) == "Medium" ) {
-			cost += 3.50;
-		} else {
-			cost += 4.00;
-		} 
 		return cost;
 	}
 

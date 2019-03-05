@@ -16,12 +16,18 @@ public class Pastry extends DessertItem {
 	private String temperature;
 	
 	/**
+	 * cost of the current rorder
+	 */
+	private double cost;
+	
+	/**
 	 * default constructor
 	 */
 	public Pastry ( ) {
 		super ( "Pastry" );
 		quantity = 1;
 		temperature = "Warm";
+		cost = 1;
 	}
 	
 	/**
@@ -34,6 +40,7 @@ public class Pastry extends DessertItem {
 		super ( p );
 		quantity = q;
 		temperature = t;
+		cost = quantity * price;
 	}
 	
 	/**
@@ -50,6 +57,15 @@ public class Pastry extends DessertItem {
 	 */
 	public void setQuantity ( int q ) {
 		quantity = q;
+		cost = quantity * price;
+	}
+	
+	/**
+	 * @desc sets the cost of the order, used for coupons
+	 * @param c cost to apply to
+	 */
+	public void setCost ( double c ) {
+		cost = c;
 	}
 	
 	/**
@@ -67,7 +83,7 @@ public class Pastry extends DessertItem {
 	 */
 	@Override
 	public double getCost ( ) {
-		return quantity * price;
+		return cost;
 	}
 
 	@Override

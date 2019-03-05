@@ -78,6 +78,7 @@ public class GetInput {
 		}
 		return input;
 	}
+	                                                                                                                                                                                                                     
 	public static int getIntRange ( int low, int high ) {
 		Scanner in = new Scanner ( System.in );
 		int input = 0;

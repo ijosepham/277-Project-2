@@ -34,6 +34,14 @@ public class Coupon {
 	}
 	
 	/**
+	 * @desc gets and returns the item typeo f the coupon
+	 * @return the item type of the coupon as a string
+	 */
+	public String getItemType ( ) {
+		return itemType;
+	}
+	
+	/**
 	 * gets the discount of this coupon
 	 * @return the discount as a percent decimal 
 	 * **/

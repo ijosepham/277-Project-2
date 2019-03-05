@@ -68,7 +68,7 @@ public class CashRegister extends ArrayList < Object > {
 			dessertPr += d.getCost ( );
 			subtotal += d.getCost ( );
 		}
-		tax = subtotal * .1025;
+		tax = subtotal * .10;
 		balance = subtotal + tax;
 	}
 	
@@ -78,6 +78,88 @@ public class CashRegister extends ArrayList < Object > {
 	 */
 	public Object getOrder ( int index ) {
 		return super.get ( index );
+	}
+	
+	/**
+	 * @desc applies a coupon to a drink, and updates the cost of that item and change the subtotal
+	 * @param c coupon to apply
+	 */
+	public void applyCoupon ( Coupon c ) {
+		double discount = 0;
+		if ( c.getItemType ( ).equalsIgnoreCase ( "Drink" ) ) {
+			if ( drinkAm > 0 ) {
+				BobaDrink maxBoba = new BobaDrink ( ); // keeps track of highest boba drink
+				maxBoba.setCost( 0 ); // sets its cost to 0 so it grabs the first one instead
+				CoffeeDrink maxCoffee = new CoffeeDrink ( );
+				maxCoffee.setCost( 0 );
+				for ( int i = 0; i < orderSize ( ); i ++ ) { // this gets the highest priced drink in the order
+					if ( getOrder ( i ) instanceof DrinkItem ) {
+						DrinkItem order = ( DrinkItem ) getOrder ( i );
+						if ( order instanceof BobaDrink ) {
+							maxBoba = (BobaDrink) DrinkItem.max ( order, maxBoba ); 
+						} else {
+							maxCoffee = (CoffeeDrink) DrinkItem.max ( order, maxCoffee );
+						}
+						
+					}
+				}
+				DrinkItem maxDrink = DrinkItem.max ( maxBoba, maxCoffee ); // gets the higher of the two
+				discount = maxDrink.getCost ( ) * c.getDiscount ( ); // gets the amount discounted
+				drinkPr -= discount;
+				if ( maxDrink instanceof BobaDrink ) {
+					BobaDrink b = ( BobaDrink ) maxDrink; // makes drink item into boba/coffee
+					b.setCost ( maxDrink.getCost ( ) * ( 1 - c.getDiscount ( ) ) ); // reduces the cost of the item
+					set ( indexOf ( maxDrink ), b ); // update it in the cash register
+					
+				} else {
+					CoffeeDrink cf = ( CoffeeDrink ) maxDrink;
+					cf.setCost( maxDrink.getCost ( ) * ( 1 - c.getDiscount ( ) ) );
+					set ( indexOf ( maxDrink ), cf );
+					
+				}
+			}
+		} else if ( c.getItemType ( ).equalsIgnoreCase ( "Dessert" ) ) {
+			Pastry maxPastry = new Pastry ( ); // keeps track of highest boba drink
+			maxPastry.setCost( 0 ); // sets its cost to 0 so it grabs the first one instead
+			Cookie maxCookie = new Cookie( );
+			maxCookie.setCost( 0 );
+			Macaron maxMac = new Macaron ( );
+			maxMac.setCost ( 0 );
+			for ( int i = 0; i < orderSize ( ); i ++ ) {
+				if ( getOrder ( i ) instanceof DessertItem ) {
+					DessertItem order = ( DessertItem ) getOrder ( i );
+					if ( order instanceof Pastry ) {
+						maxPastry = (Pastry) DessertItem.max ( order, maxPastry ); 
+					} else if ( order instanceof Cookie ){
+						maxCookie = (Cookie) DessertItem.max ( order, maxCookie );
+					} else {
+						maxMac = (Macaron) DessertItem.max ( order, maxMac );
+					}
+				}
+			}
+			DessertItem max = DessertItem.max ( maxPastry, maxCookie );
+			max = DessertItem.max ( max, maxMac );
+			discount = max.getCost ( ) * c.getDiscount ( );
+			dessertPr -= discount;
+			if ( max instanceof Cookie ) {
+				Cookie co = ( Cookie ) max;
+				if ( co instanceof Macaron ) {
+					Macaron m = ( Macaron ) co;
+					m.setCost ( max.getCost ( ) * ( 1 - c.getDiscount ( ) ) );
+					set ( indexOf ( max ), m );
+				} else {
+					co.setCost ( max.getCost ( ) * ( 1 - c.getDiscount ( ) ) );
+					set ( indexOf ( max ), co );
+				}
+			} else {
+				Pastry p = ( Pastry ) max;
+				p.setCost( max.getCost ( ) * ( 1 - c.getDiscount ( ) ) );
+				set ( indexOf ( max ), p );
+			}
+		}
+		subtotal -= discount;
+		tax = subtotal * .10;
+		balance = subtotal * 1.10;
 	}
 	
 	/**
@@ -111,8 +193,7 @@ public class CashRegister extends ArrayList < Object > {
 		System.out.println ( "\n" + "Order Receipt" );
 		if ( drinkAm > 0 ) {
 			System.out.printf ( drinkAm + " x Drink Item - $" + "%.2f" + "\n", drinkPr );
-		}
-		if ( dessertAm > 0 ) {
+		}		if ( dessertAm > 0 ) {
 			System.out.printf ( dessertAm + " x Dessert Item - $" + "%.2f" + "\n", dessertPr );
 		}
 		System.out.printf ( "\n" + "Subtotal: $" + "%.2f", subtotal );

@@ -6,11 +6,16 @@ public class CoffeeDrink extends DrinkItem {
 	private String base;
 	
 	/**
+	 * cost of the cofffee
+	 */
+	private double cost;
+	/**
 	 * default constructor
 	 */
 	public CoffeeDrink ( ) {
 		super ( );
 		base = "Water";
+		cost = 3.50;
 	}
 	
 	/**
@@ -22,6 +27,23 @@ public class CoffeeDrink extends DrinkItem {
 	public CoffeeDrink ( String sw, String sz, String b ) {
 		super ( "Coffee", sw, sz ); 
 		base = b;
+		cost = calculateCost ( );
+		
+	}
+	
+	/**
+	 * @desc calculates the cost of the current roder of the drink by the size
+	 * @return cost of the coffee
+	 */
+	public double calculateCost ( ) {
+		if ( super.getSize( ) == "Small" ) {
+			return 3.00;
+		} else if ( super.getSize( ) == "Medium" ) {
+			return 3.50;
+		} else if ( super.getSize ( ) == "Large" ){
+			return 4.00;
+		} 
+		return 0;
 	}
 	
 	/**
@@ -41,6 +63,14 @@ public class CoffeeDrink extends DrinkItem {
 	}
 	
 	/**
+	 * @desc sets the cost of the order, used for coupons
+	 * @param c cost to apply to
+	 */
+	public void setCost ( double c ) {
+		cost = c;
+	}
+	
+	/**
 	 * @desc returns a string of the order
 	 * @return string - order of coffee
 	 */
@@ -57,13 +87,7 @@ public class CoffeeDrink extends DrinkItem {
 	 */
 	@Override
 	public double getCost ( ) {
-		if ( super.getSize( ) == "Small" ) {
-			return 3.00;
-		} else if ( super.getSize( ) == "Medium" ) {
-			return 3.50;
-		} else {
-			return 4.00;
-		} 
+		return cost;
 	}
 
 	@Override

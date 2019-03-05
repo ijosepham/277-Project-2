@@ -26,6 +26,11 @@ public class Macaron extends Cookie {
 	private double pricePerThree = 2.50;
 	
 	/**
+	 * cost of the order of macarons
+	 */
+	private double cost;
+	
+	/**
 	 * default constructor
 	 */
 	public Macaron ( ) {
@@ -33,6 +38,7 @@ public class Macaron extends Cookie {
 		quantity = 1;
 		singles = 1;
 		threes = 0;
+		cost = 1;
 	}
 	
 	/**
@@ -45,6 +51,7 @@ public class Macaron extends Cookie {
 		quantity = q;
 		singles = quantity % 3;
 		threes = quantity / 3;
+		cost = singles * pricePerOne + threes * pricePerThree;
 	}
 	
 	/**
@@ -63,6 +70,15 @@ public class Macaron extends Cookie {
 		quantity = q;
 		singles = quantity % 3;
 		threes = quantity / 3;
+		cost = singles * pricePerOne + threes * pricePerThree;
+	}
+	
+	/**
+	 * @desc sets the cost of the order, used for coupons
+	 * @param c cost to apply to
+	 */
+	public void setCost ( double c ) {
+		cost = c;
 	}
 	
 	/**
@@ -88,6 +104,6 @@ public class Macaron extends Cookie {
 	 */
 	@Override
 	public double getCost ( ) {
-		return singles * pricePerOne + threes * pricePerThree;
+		return cost;
 	}
 }

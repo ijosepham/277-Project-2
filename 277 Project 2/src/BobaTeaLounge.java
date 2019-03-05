@@ -1,7 +1,8 @@
 import java.util.ArrayList;
+
 /**
  * @author joey pham
- * @date 21 feb 19
+ * @date 26 feb 19
  * @desc user takes orders of customers' drinks and desserts they'd like to buy. 
  */
 
@@ -10,59 +11,84 @@ public class BobaTeaLounge {
 		ArrayList < String > sales = new ArrayList < String > ( ); // contains all the receipts from al lsales
 		CashRegister cashRegister  = new CashRegister ( ); // hurrdurr
 		double grandTotal = 0;
-		Object order = null;
-		int menuChoice = 0;
-		boolean done = false; // keep track if the day is done or not
+		int mainMenuChoice = getMain ( );
+		int saleChoice = 0;
+		int itemChoice = 0;
 		
-		while ( !done ) { // while day hasn't finished
-			System.out.println ( "Welcome to Boba Tea Lounge! What may I get you?" + "\n" );
-			menuChoice = getMain ( ); // prompts user if they want a drink, desser, or to finish their sale
-			while ( menuChoice != 3 ) { // while user wants to keep buying items
-				if ( menuChoice == 1 ) { // drink
-					menuChoice = getDrink ( );
-					if ( menuChoice == 1 ) { // tea
-						order = orderTea ( );
-					} else if ( menuChoice == 2 ) { // coffee
-						order = orderCoffee ( );
+		while ( mainMenuChoice != 3 ) { // hasn't quit
+			if ( mainMenuChoice == 1 ) { // new sale
+				saleChoice = getSale ( ); // purcahse drink/dessert/end sale
+				while ( saleChoice != 3 ) { // user hasnt ended sale
+					if ( saleChoice == 1 ) { // purchase drink
+						itemChoice = getDrink ( );
+						if ( itemChoice == 1 ) { // tea
+							cashRegister.addOrder ( orderTea ( ) );
+						} else if ( itemChoice == 2 ) { // coffee
+							cashRegister.addOrder ( orderCoffee ( ) );
+						}
+					} else if ( saleChoice == 2 ) { // purchase dessert
+						itemChoice = getDessert ( );
+						if ( itemChoice == 1 ) { // pastry
+							cashRegister.addOrder ( orderPastry ( ) );
+						} else if ( itemChoice == 2 ) { // cookie
+							cashRegister.addOrder ( orderCookie ( ) );
+						} else if ( itemChoice == 3 ) { // macaron
+							cashRegister.addOrder ( orderMacaron ( ) );
+						}
 					}
-				} else { // dessert
-					menuChoice = getDessert ( );
-					if ( menuChoice == 1 ) { // pastry
-						order = orderPastry ( );
-					} else if ( menuChoice == 2 ) { // cookie
-						order = orderCookie ( );
-					} else { // mac
-						order = orderMacaron ( );
-					}
+					saleChoice = getSale ( );
 				}
-				if ( confirmOrder ( order ) ) { 
-					cashRegister.addOrder ( order ); // add the order if the user confirms it
-				}
-				System.out.println ( "Would you like anything else?" + "\n" );
-				menuChoice = getMain ( ); // then asks if they want another item or to finsih up the sale
+				// end sale here
+				cashRegister.printReceipt ( ); // prints receipt before coupon
+				cashRegister.applyCoupon( getCoupon ( ) ); // ask for coupon
+				cashRegister.printReceipt ( ); // print final receipt
+				transaction ( cashRegister.getBalance ( ) ); // get payment and give change
+				sales.add ( cashRegister.getSale ( ) ); // add the receipt to the receipts list
+				grandTotal += cashRegister.getBalance ( ); // increment grandtotal
+				cashRegister.clearRegister ( ); // clera register
+			} else if ( mainMenuChoice == 2 ) {
+				// display all sales
+				printSales ( sales, grandTotal );
 			}
-			// reaches here once user says they're done with their sale
-			sales.add ( cashRegister.getSale ( ) ); // add receipt to arraylist
-			grandTotal += cashRegister.getBalance ( ); // increase grandtotal by sale balance
 			
-			cashRegister.printReceipt ( ); // prints out the receipt of the just finished sale
-			transaction ( cashRegister ); // asks user to cough up and program gives change
-			cashRegister.clearRegister ( ); // clears register to start a new sale with a new customer
-			System.out.println ( "Thank you for coming to Boba Tea Lounge. Please come again!" ); // cya@
-			
-			System.out.println ( "\n" + "Is the day over? (Y/N)" ); // asks if day is over, if not, keep looping
-			done = GetInput.getYesOrNo ( ); // if day is over, print all sales from the day
-			System.out.println ( "" );
+			mainMenuChoice = getMain ( );
 		}
-		printSales ( sales, grandTotal ); // print sales once the day is over
+		System.out.println("Thank you for coming to Boba Tea Lounge. Please come again!" );
 	}
 
+	/**
+	 * @desc gets coupon for user and returns it, if none, returns a blank coupon
+	 * @return coupon with given string and given discount
+	 */
+	public static Coupon getCoupon ( ) {
+		System.out.print ( "Do you have any coupons? (Y/N): " );
+		boolean hasCoupon = GetInput.getYesOrNo ( );
+		if ( hasCoupon ) {
+			System.out.println ( "Coupons" );
+			System.out.println ( "1. Drink Coupon" );
+			System.out.println ( "2. Dessert Coupon" );
+			int c = GetInput.getIntRange ( 1, 2 );
+			String coupon = "";
+			if ( c == 1 ) {
+				coupon = "drink";
+			} else {
+				coupon = "dessert";
+			}
+			System.out.println ( "How much percentage off is it?" );
+			int d = GetInput.getIntRange ( 1, 100 );
+			double discount = d / 100.0;
+			System.out.println(new Coupon ( coupon, discount ));
+			return new Coupon ( coupon, discount );
+		}
+		return new Coupon ( "", 0 );
+	}
+	
 	/**
 	 * @desc gets customer's money to pay for their order and gives change if due. only happens after user finishes their sale
 	 * @param c - cash register so you can pull the balance of the order from
 	 */
-	public static void transaction ( CashRegister c ) {
-		double balance = ( ( ( int ) ( c.getBalance ( ) * 100 ) ) / 100.0 ); // this will round to two decimal palces
+	public static void transaction ( double balance ) {
+		balance = ( ( ( int ) ( balance * 100 ) ) / 100.0 ); // this will round to two decimal palces
 		double payment = getPayment ( balance );
 		double change = payment - balance;
 		System.out.printf ( "\n" + "Change: $" + "%.2f" + "\n" + "\n", change );
@@ -89,7 +115,7 @@ public class BobaTeaLounge {
 			System.out.println ( "Sale #" + ( i + 1 ) );
 			System.out.println ( sales.get ( i ) + "\n" ); 
 		}
-		System.out.printf ( "Grand Total: $" + "%.2f", grandTotal );
+		System.out.printf ( "Grand Total: $" + "%.2f" + "\n", grandTotal );
 	}
 	
 	/**
@@ -179,23 +205,11 @@ public class BobaTeaLounge {
 	 * @return int - amount of dozens of cookies they want;
 	 */
 	public static int getCookieQuantity ( ) {
+		System.out.println ( "1 Cookie @ $1.00." );
 		System.out.println ( "1 Dozen Cookies @ $10.00." );
-		System.out.println ( "Dozen Cookies Amount" );
-		int dozens = GetInput.getIntRangeL ( 1 );
-		return dozens;
-	}
-	
-	/**
-	 * @desc confirms whether or not the customer still wants that item
-	 * @param o - order to be printed
-	 * @return t/f - whether they wanted the order or not
-	 */
-	public static boolean confirmOrder ( Object o ) {
-		printOrder ( o );
-		System.out.print ( "Confirm Order (Y/N): " );
-		boolean confirmed = GetInput.getYesOrNo ( );
-		System.out.println ( "" );
-		return confirmed;
+		System.out.println ( "Cookie Amount" );
+		int quantity = GetInput.getIntRangeL ( 1 );
+		return quantity;
 	}
 	
 	/**
@@ -215,11 +229,23 @@ public class BobaTeaLounge {
 	}
 	
 	/**
+	 * gets the user choice from the main menu
+	 * @return main menu choice
+	 */
+	public static int getMain ( ) {
+		System.out.println ( "Boba Tea Lounge" );
+		System.out.println ( "1. New Sale" );
+		System.out.println ( "2. Display All Sales" );
+		System.out.println ( "3. Close Cash Register " );
+		return GetInput.getIntRange ( 1, 3 );
+	}
+	
+	/**
 	 * @desc prompts user if they'd like to purchase something or finish their sale. returns corresponding action
 	 * @return int - choice if they wanted to get a drink/dessert/quit
 	 */
-	public static int getMain ( ) {
-		System.out.println ( "Boba Tea Lounge Menu" );
+	public static int getSale( ) {
+		System.out.println ( "Menu" );
 		System.out.println ( "1. Purchase Drink" );
 		System.out.println ( "2. Purchase Dessert" );
 		System.out.println ( "3. Finish Sale" );
